@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suo GunShop - Premium Firearms & Tactical Gear</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .hero-gradient {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 50%, #1a1a1a 100%);
+        }
+        .weapon-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+        .category-btn.active {
+            background-color: #b91c1c;
+            color: white;
+        }
+        .cart-item-enter {
+            animation: slideIn 0.3s forwards;
+        }
+        .cart-item-exit {
+            animation: slideOut 0.3s forwards;
+        }
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes slideOut {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(100%); opacity: 0; }
+        }
+        .checkout-modal {
+            animation: fadeIn 0.3s forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100 font-sans">
+    <!-- Navigation -->
+    <nav class="bg-gray-800 sticky top-0 z-50 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <span class="text-red-600 font-bold text-2xl">SUO</span>
+                        <span class="text-white font-bold text-2xl">GUNSHOP</span>
+                    </div>
+                    <div class="hidden md:block">
+                        <div class="ml-10 flex items-baseline space-x-4">
+                            <a href="#" id="home-link" class="text-red-500 hover:text-red-400 px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                            <a href="#" id="shop-link" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Shop</a>
+                            <a href="#" id="ammo-link" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Ammunition</a>
+                            <a href="#" id="gear-link" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Tactical Gear</a>
+                            <a href="#" id="about-link" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">About Us</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-4 flex items-center md:ml-6">
+                        <button id="cart-btn" class="p-1 rounded-full text-gray-400 hover:text-white focus:outline-none relative">
+                            <i class="fas fa-shopping-cart text-xl"></i>
+                            <span id="cart-count" class="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="-mr-2 flex md:hidden">
+                    <button id="mobile-menu-btn" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#" class="text-red-500 block px-3 py-2 rounded-md text-base font-medium">Home</a>
+                <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Shop</a>
+                <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Ammunition</a>
+                <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Tactical Gear</a>
+                <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">About Us</a>
+            </div>
+            <div class="pt-4 pb-3 border-t border-gray-700">
+                <div class="flex items-center px-5">
+                    <button id="mobile-cart-btn" class="ml-auto flex-shrink-0 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none relative">
+                        <i class="fas fa-shopping-cart text-xl"></i>
+                        <span id="mobile-cart-count" class="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-gradient py-20 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="lg:grid lg:grid-cols-2 lg:gap-8 items-center">
+                <div class="mb-12 lg:mb-0">
+                    <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-6">
+                        <span class="block">PREMIUM FIREARMS</span>
+                        <span class="block text-red-600">FOR DISCRIMINATING SHOOTERS</span>
+                    </h1>
+                    <p class="mt-3 text-base text-gray-300 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
+                        Suo GunShop offers the finest selection of handcrafted firearms, premium ammunition, and tactical gear for professionals and enthusiasts alike.
+                    </p>
+                    <div class="mt-8 sm:flex sm:justify-center lg:justify-start">
+                        <div class="rounded-md shadow">
+                            <a href="#shop" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-red-600 hover:bg-red-700 md:py-4 md:text-lg md:px-10 transition duration-300">
+                                SHOP NOW
+                            </a>
+                        </div>
+                        <div class="mt-3 rounded-md shadow sm:mt-0 sm:ml-3">
+                            <a href="#featured" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-red-600 bg-white hover:bg-gray-50 md:py-4 md:text-lg md:px-10 transition duration-300">
+                                FEATURED ITEMS
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative">
+                    <img class="w-full rounded-lg shadow-2xl transform rotate-2" src="https://images.unsplash.com/photo-1583947581924-860bda6a26df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Premium firearms collection">
+                    <div class="absolute -bottom-6 -left-6 bg-red-600 w-32 h-32 rounded-full flex items-center justify-center shadow-xl">
+                        <span class="text-white font-bold text-xl">EST. 1995</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section id="featured" class="py-16 bg-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-extrabold text-white sm:text-4xl">
+                    <span class="block">FEATURED FIREARMS</span>
+                </h2>
+                <p class="mt-3 max-w-2xl mx-auto text-gray-300 sm:mt-4">
+                    Hand-selected by our team of firearms experts
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Product 1 -->
+                <div class="bg-gray-700 rounded-lg overflow-hidden shadow-lg weapon-card transition duration-300">
+                    <div class="relative">
+                        <img class="w-full h-64 object-cover" src="https://images.unsplash.com/photo-1596451099371-1d1ca58f1cb3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Desert Eagle">
+                        <div class="absolute top-0 right-0 bg-red-600 text-white px-2 py-1 text-xs font-bold">NEW</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white mb-2">Desert Eagle Mark XIX</h3>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="text-gray-300 text-sm ml-2">(24 reviews)</span>
+                        </div>
+                        <p class="text-gray-300 text-sm mb-4">.50 AE - Semi-Automatic - 7 Round Capacity</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-white">$1,999</span>
+                            <button class="add-to-cart bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md transition duration-300" data-id="1" data-name="Desert Eagle Mark XIX" data-price="1999" data-image="https://images.unsplash.com/photo-1596451099371-1d1ca58f1cb3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 2 -->
+                <div class="bg-gray-700 rounded-lg overflow-hidden shadow-lg weapon-card transition duration-300">
+                    <div class="relative">
+                        <img class="w-full h-64 object-cover" src="https://images.unsplash.com/photo-1598488035131-b229b8aed67d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Colt 1911">
+                        <div class="absolute top-0 right-0 bg-blue-600 text-white px-2 py-1 text-xs font-bold">BEST SELLER</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white mb-2">Colt M1911 Government</h3>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="text-gray-300 text-sm ml-2">(42 reviews)</span>
+                        </div>
+                        <p class="text-gray-300 text-sm mb-4">.45 ACP - Semi-Automatic - 7+1 Round Capacity</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-white">$1,299</span>
+                            <button class="add-to-cart bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md transition duration-300" data-id="2" data-name="Colt M1911 Government" data-price="1299" data-image="https://images.unsplash.com/photo-1598488035131-b229b8aed67d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 3 -->
+                <div class="bg-gray-700 rounded-lg overflow-hidden shadow-lg weapon-card transition duration-300">
+                    <div class="relative">
+                        <img class="w-full h-64 object-cover" src="https://images.unsplash.com/photo-1556909114-44e2b9a6a9f6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Glock 17">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white mb-2">Glock 17 Gen 5</h3>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <span class="text-gray-300 text-sm ml-2">(36 reviews)</span>
+                        </div>
+                        <p class="text-gray-300 text-sm mb-4">9mm - Semi-Automatic - 17+1 Round Capacity</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-white">$599</span>
+                            <button class="add-to-cart bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md transition duration-300" data-id="3" data-name="Glock 17 Gen 5" data-price="599" data-image="https://images.unsplash.com/photo-1556909114-44e2b9a6a9f6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shop Section -->
+    <section id="shop" class="py-16 bg-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-extrabold text-white sm:text-4xl">
+                    <span class="block">OUR COLLECTION</span>
+                </h2>
+                <p class="mt-3 max-w-2xl mx-auto text-gray-300 sm:mt-4">
+                    Browse our extensive selection of premium firearms
+                </p>
+            </div>
+            
+            <!-- Category Filters -->
+            <div class="flex flex-wrap justify-center gap-2 mb-8">
+                <button class="category-btn active px-4 py-2 rounded-full bg-gray-700 text-white hover:bg-gray-600 transition duration-300" data-category="all">All Firearms</button>
+                <button class="category-btn px-4 py-2 rounded-full bg-gray-700 text-white hover:bg-gray-600 transition duration-300" data-category="pistol">Pistols</button>
+                <button class="category-btn px-4 py-2 rounded-full bg-gray-700 text-white hover:bg-gray-600 transition duration-300" data-category="revolver">Revolvers</button>
+                <button class="category-btn px-4 py-2 rounded-full bg-gray-700 text-white hover:bg-gray-600 transition duration-300" data-category="rifle">Rifles</button>
+                <button class="category-btn px-4 py-2 rounded-full bg-gray-700 text-white hover:bg-gray-600 transition duration-300" data-category="shotgun">Shotguns</button>
+                <button class="category-btn px-4 py-2 rounded-full bg-gray-700 text-white hover:bg-gray-600 transition duration-300" data-category="sniper">Sniper Rifles</button>
+            </div>
+            
+            <!-- Products Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="products-grid">
+                <!-- Products will be loaded here by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Ammunition Section -->
+    <section id="ammo" class="py-16 bg-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-extrabold text-white sm:text-4xl">
+                    <span class="block">PREMIUM AMMUNITION</span>
+                </h2>
+                <p class="mt-3 max-w-2xl mx-auto text-gray-300 sm:mt-4">
+                    High-performance rounds for every firearm
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Ammo 1 -->
+                <div class="bg-gray-700 rounded-lg overflow-hidden shadow-lg weapon-card transition duration-300">
+                    <div class="relative">
+                        <img class="w-full h-64 object-cover" src="https://images.unsplash.com/photo-1567602901358-5aa35f2731e2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="9mm Ammo">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white mb-2">Federal Premium 9mm Luger</h3>
+                        <p class="text-gray-300 text-sm mb-4">124 Grain FMJ - 50 Rounds per Box</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-white">$24.99</span>
+                            <button class="add-to-cart bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md transition duration-300" data-id="a1" data-name="Federal Premium 9mm Luger" data-price="24.99" data-image="https://images.unsplash.com/photo-1567602901358-5aa35f2731e2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Ammo 2 -->
+                <div class="bg-gray-700 rounded-lg overflow-hidden shadow-lg weapon-card transition duration-300">
+                    <div class="relative">
+                        <img class="w-full h-64 object-cover" src="https://images.unsplash.com/photo-1610809027249-86c649feacd5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt=".45 ACP Ammo">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white mb-2">Hornady .45 ACP</h3>
+                        <p class="text-gray-300 text-sm mb-4">230 Grain XTP JHP - 20 Rounds per Box</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-white">$34.99</span>
+                            <button class="add-to-cart bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md transition duration-300" data-id="a2" data-name="Hornady .45 ACP" data-price="34.99" data-image="https://images.unsplash.com/photo-1610809027249-86c649feacd5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Ammo 3 -->
+                <div class="bg-gray-700 rounded-lg overflow-hidden shadow-lg weapon-card transition duration-300">
+                    <div class="relative">
+                        <img class="w-full h-64 object-cover" src="https://images.unsplash.com/photo-1567602901358-5aa35f2731e2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt=".223 Remington Ammo">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white mb-2">Winchester .223 Remington</h3>
+                        <p class="text-gray-300 text-sm mb-4">55 Grain FMJ - 100 Rounds per Box</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-white">$89.99</span>
+                            <button class="add-to-cart bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md transition duration-300" data-id="a3" data-name="Winchester .223 Remington" data-price="89.99" data-image="https://images.unsplash.com/photo-1567602901358-5aa35f2731e2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-10">
+                <a href="#" class="inline-block px-6 py-3 bg-gray-700 text-white font-medium rounded-md hover:bg-gray-600 transition duration-300">
+                    VIEW ALL AMMUNITION
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tactical Gear Section -->
+    <section id="gear" class="py-16 bg-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-extrabold text-white sm:text-4xl">
+                    <span class="block">TACTICAL GEAR</span>
+                </h2>
+                <p class="mt-3 max-w-2xl mx-auto text-gray-300 sm:mt-4">
+                    High-quality equipment for professionals and enthusiasts
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Gear 1 -->
+                <div class="bg-gray-700 rounded-lg overflow-hidden shadow-lg weapon-card transition duration-300">
+                    <div class="relative">
+                        <img class="w-full h-64 object-cover" src="https://images.unsplash.com/photo-1611591437281-460914d6b2f8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Tactical Vest">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white mb-2">Condor Modular Tactical Vest</h3>
+                        <p class="text-gray-300 text-sm mb-4">Adjustable MOLLE-compatible vest with multiple pouches</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-white">$129.99</span>
+                            <button class="add-to-cart bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md transition duration-300" data-id="g1" data-name="Condor Modular Tactical Vest" data-price="129.99" data-image="https://images.unsplash.com/photo-1611591437281-460914d6b2f8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Gear 2 -->
+                <div class="bg-gray-700 rounded-lg overflow-hidden shadow-lg weapon-card transition duration-300">
+                    <div class="relative">
+                        <img class="w-full h-64 object-cover" src="https://images.unsplash.com/photo-1556909114-44e2b9a6a9f6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Holster">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white mb-2">Safariland Level III Duty Holster</h3>
+                        <p class="text-gray-300 text-sm mb-4">Right-handed holster for Glock 17/22 with ALS retention</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-white">$89.99</span>
+                            <button class="add-to-cart bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md transition duration-300" data-id="g2" data-name="Safariland Level III Duty Holster" data-price="89.99" data-image="https://images.unsplash.com/photo-1556909114-44e2b9a6a9f6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Gear 3 -->
+                <div class="bg-gray-700 rounded-lg overflow-hidden shadow-lg weapon-card transition duration-300">
+                    <div class="relative">
+                        <img class="w-full h-64 object-cover" src="https://images.unsplash.com/photo-1611591437281-460914d6b2f8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Optics">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white mb-2">Vortex Optics Crossfire II</h3>
+                        <p class="text-gray-300 text-sm mb-4">2-7x32mm Rifle Scope with Dead-Hold BDC reticle</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-white">$199.99</span>
+                            <button class="add-to-cart bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md transition duration-300" data-id="g3" data-name="Vortex Optics Crossfire II" data-price="199.99" data-image="https://images.unsplash.com/photo-1611591437281-460914d6b2f8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-10">
+                <a href="#" class="inline-block px-6 py-3 bg-gray-700 text-white font-medium rounded-md hover:bg-gray-600 transition duration-300">
+                    VIEW ALL TACTICAL GEAR
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" class="py-16 bg-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:grid lg:grid-cols-2 lg:gap-8 items-center">
+                <div class="mb-12 lg:mb-0">
+                    <h2 class="text-3xl font-extrabold text-white sm:text-4xl mb-6">
+                        <span class="block">ABOUT SUO GUNSHOP</span>
+                    </h2>
+                    <p class="text-gray-300 mb-4">
+                        Founded in 1995, Suo GunShop has grown from a small family-owned business to one of the most respected firearms retailers in the industry. Our commitment to quality, customer service, and responsible gun ownership has earned us a loyal following among law enforcement, military personnel, and civilian shooters alike.
+                    </p>
+                    <p class="text-gray-300 mb-4">
+                        Our team consists of experienced firearms experts, many of whom are former military or law enforcement professionals. We personally test and evaluate every product we sell to ensure it meets our exacting standards.
+                    </p>
+                    <p class="text-gray-300">
+                        At Suo GunShop, we believe in the right to bear arms responsibly. We conduct thorough background checks on all firearm purchases and offer free safety courses with every new firearm purchase.
+                    </p>
+                </div>
+                <div class="relative">
+                    <img class="w-full rounded-lg shadow-xl" src="https://images.unsplash.com/photo-1585771724684-38269d6639fd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Suo GunShop store">
+                    <div class="absolute -bottom-6 -right-6 bg-red-600 text-white px-6 py-3 rounded-lg shadow-lg">
+                        <span class="font-bold">FOUNDED IN 1995</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-gray-700 p-6 rounded-lg shadow-lg">
+                    <div class="text-red-500 mb-4">
+                        <i class="fas fa-shield-alt text-4xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Quality Assurance</h3>
+                    <p class="text-gray-300">
+                        Every firearm is inspected by our certified gunsmiths before being offered for sale.
+                    </p>
+                </div>
+                <div class="bg-gray-700 p-6 rounded-lg shadow-lg">
+                    <div class="text-red-500 mb-4">
+                        <i class="fas fa-user-shield text-4xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Expert Staff</h3>
+                    <p class="text-gray-300">
+                        Our team includes former military and law enforcement professionals with decades of experience.
+                    </p>
+                </div>
+                <div class="bg-gray-700 p-6 rounded-lg shadow-lg">
+                    <div class="text-red-500 mb-4">
+                        <i class="fas fa-lock text-4xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Secure Transactions</h3>
+                    <p class="text-gray-300">
+                        All transactions are processed securely with industry-standard encryption.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 pt-12 pb-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-white text-lg font-bold mb-4">SUO GUNSHOP</h3>
+                    <p class="text-gray-400 text-sm">
+                        Premium firearms, ammunition, and tactical gear for professionals and enthusiasts.
+                    </p>
+                    <div class="mt-4 flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-white text-lg font-bold mb-4">SHOP</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white text-sm">Firearms</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white text-sm">Ammunition</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white text-sm">Tactical Gear</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white text-sm">Optics</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white text-sm">Holsters</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-white text-lg font-bold mb-4">INFORMATION</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white text-sm">About Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white text-sm">Contact Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white text-sm">Shipping Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white text-sm">Return Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white text-sm">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-white text-lg font-bold mb-4">CONTACT</h3>
+                    <ul class="space-y-2 text-gray-400 text-sm">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-2 text-red-500"></i>
+                            <span>123 Tactical Way, Gunville, GV 12345</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone-alt mr-2 text-red-500"></i>
+                            <span>(123) 456-7890</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-2 text-red-500"></i>
+                            <span>info@suogunshop.com</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-clock mr-2 text-red-500"></i>
+                            <span>Mon-Fri: 9AM-6PM</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-gray-800 text-center text-gray-400 text-sm">
+                <p>© 2023 Suo GunShop. All rights reserved. All firearms sales subject to background check.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Shopping Cart Sidebar -->
+    <div id="cart-sidebar" class="fixed top-0 right-0 h-full w-full md:w-96 bg-gray-800 shadow-xl transform translate-x-full transition-transform duration-300 ease-in-out z-50 overflow-y-auto">
+        <div class="p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-bold text-white">Your Cart</h2>
+                <button id="close-cart" class="text-gray-400 hover:text-white">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div id="cart-items" class="space-y-4">
+                <!-- Cart items will be added here by JavaScript -->
+                <div class="text-center py-10 text-gray-400" id="empty-cart-message">
+                    <i class="fas fa-shopping-cart text-4xl mb-4"></i>
+                    <p>Your cart is empty</p>
+                </div>
+            </div>
+            
+            <div id="cart-summary" class="mt-6 pt-6 border-t border-gray-700 hidden">
+                <div class="flex justify-between mb-2">
+                    <span class="text-gray-300">Subtotal:</span>
+                    <span id="cart-subtotal" class="text-white font-bold">$0.00</span>
+                </div>
+                <div class="flex justify-between mb-4">
+                    <span class="text-gray-300">Shipping:</span>
+                    <span class="text-white font-bold">Calculated at checkout</span>
+                </div>
+                <button id="checkout-btn" class="w-full bg-red-600 hover:bg-red-700 text-white py-3 rounded-md font-medium transition duration-300">
+                    PROCEED TO CHECKOUT
+                </button>
+            </div>
+        </div>
+    </div>
+    <div id="cart-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
+
+    <!-- Checkout Modal -->
+    <div id="checkout-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
+        <div class="bg-gray-800 rounded-lg shadow-xl w-full max-w-md checkout-modal">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-xl font-bold text-white">Checkout</h2>
+                    <button id="close-checkout" class="text-gray-400 hover:text-white">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
+                <form id="checkout-form">
+                    <div class="mb-4">
+                        <label for="name" class="block text-gray-300 text-sm font-medium mb-2">Full Name</label>
+                        <input type="text" id="name" class="w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-red-500" required>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="email" class="block text-gray-300 text-sm font-medium mb-2">Email</label>
+                        <input type="email" id="email" class="w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-red-500" required>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="address" class="block text-gray-300 text-sm font-medium mb-2">Shipping Address</label>
+                        <textarea id="address" rows="3" class="w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-red-500" required></textarea>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label class="block text-gray-300 text-sm font-medium mb-2">Payment Method</label>
+                        <div class="space-y-2">
+                            <div class="flex items-center">
+                                <input id="cod" name="payment" type="radio" class="h-4 w-4 text-red-600 focus:ring-red-500 border-gray-600" checked>
+                                <label for="cod" class="ml-2 block text-gray-300">Cash on Delivery (COD)</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="gopay" name="payment" type="radio" class="h-4 w-4 text-red-600 focus:ring-red-500 border-gray-600">
+                                <label for="gopay" class="ml-2 block text-gray-300">GoPay</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="dana" name="payment" type="radio" class="h-4 w-4 text-red-600 focus:ring-red-500 border-gray-600">
+                                <label for="dana" class="ml-2 block text-gray-300">DANA</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-700 p-4 rounded-md mb-6">
+                        <h3 class="text-white font-medium mb-2">Order Summary</h3>
+                        <div id="checkout-summary" class="text-gray-300 text-sm">
+                            <!-- Order summary will be added here by JavaScript -->
+                        </div>
+                        <div class="flex justify-between mt-3 pt-3 border-t border-gray-600">
+                            <span class="text-white font-medium">Total:</span>
+                            <span id="checkout-total" class="text-white font-bold">$0.00</span>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white py-3 rounded-md font-medium transition duration-300">
+                        COMPLETE ORDER
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Confirmation Modal -->
+    <div id="confirmation-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
+        <div class="bg-gray-800 rounded-lg shadow-xl w-full max-w-md p-6 text-center">
+            <div class="text-green-500 text-5xl mb-4">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2 class="text-2xl font-bold text-white mb-2">Order Confirmed!</h2>
+            <p class="text-gray-300 mb-6">Thank you for your purchase. Your order has been placed successfully.</p>
+            <button id="close-confirmation" class="px-6 py-2 bg-red-600 hover:bg-red-700 text-white rounded-md font-medium transition duration-300">
+                CONTINUE SHOPPING
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Sample product data
+        const products = [
+            {
+                id: 1,
+                name: "Desert Eagle Mark XIX",
+                price: 1999,
+                image: "https://images.unsplash.com/photo-1596451099371-1d1ca58f1cb3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+                category: "pistol",
+                description: ".50 AE - Semi-Automatic - 7 Round Capacity",
+                rating: 4.5,
+                reviews: 24
+            },
+            {
+                id: 2,
+                name: "Colt M1911 Government",
+                price: 1299,
+                image: "https://images.unsplash.com/photo-1598488035131-b229b8aed67d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+                category: "pistol",
+                description: ".45 ACP - Semi-Automatic - 7+1 Round Capacity",
+                rating: 5,
+                reviews: 42
+            },
+            {
+                id: 3,
+                name: "Glock 17 Gen 5",
+                price: 599,
+                image: "https://images.unsplash.com/photo-1556909114-44e2b9a6a9f6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+                category: "pistol",
+                description: "9mm - Semi-Automatic - 17+1 Round Capacity",
+                rating: 4,
+                reviews: 36
+            },
+            {
+                id: 4,
+                name: "Smith & Wesson Model 29",
+                price: 899,
+                image: "https://images.unsplash.com/photo-1556909114-44e2b9a6a9f6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+                category: "revolver",
+                description: ".44 Magnum - 6 Round Capacity - 6.5\" Barrel",
+                rating: 4.5,
+                reviews: 18
+            },
+            {
+                id: 5,
+                name: "Colt Python",
+                price: 1499,
+                image: "https://images.unsplash.com/photo-1556909114-44e2b9a6a9f6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+                category: "revolver",
+                description: ".357 Magnum - 6 Round Capacity - 4.25\" Barrel",
+                rating: 5,
+                reviews: 31
+            },
+            {
+                id: 6,
+                name: "Ruger GP100",
+                price: 799,
+                image: "https://images.unsplash.com/photo-1556909114-44e2b9a6a9f6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+                category: "revolver",
+                description: ".357 Magnum - 6 Round Capacity - 3\" Barrel",
+                rating: 4.5,
+                reviews: 22
+            },
+            {
+                id: 7,
+                name: "AR-15 Custom Build",
+                price: 1299,
+                image: "https://images.unsplash.com/photo-1556909114-44e2b9a6a9f6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+                category: "rifle",
+                description: "5.56 NATO - Semi-Automatic - 30 Round Magazine",
+                rating: 4.5,
+                reviews: 28
+            },
+            {
+                id: 8,
+                name: "AK-47 Romanian WASR-10",
+                price: 899,
+                image: "https://images.unsplash.com/photo-1556909114-44e2b9a6a9f6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+                category: "rifle",
+                description: "7.62x39mm - Semi-Automatic - 30 Round Magazine",
+                rating: 4,
+                reviews: 19
+            },
+            {
+                id: 9,
+                name: "Remington 700 SPS Tactical",
+                price: 799,
+                image: "https://images.unsplash.com/photo-1556909114-44e2b9a6a9f6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+                category: "sniper",
+                description: ".308 Winchester - Bolt Action - 20\" Barrel",
+                rating: 4.5,
+                reviews: 15
+            },
+            {
+                id: 10,
+                name: "Mossberg 500 Tactical",
+                price: 499,
+                image: "https://images.unsplash.com/photo-1556909114-44e2b9a6a9f6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+                category: "shotgun",
+                description: "12 Gauge - Pump Action - 18.5\" Barrel - 5+1 Capacity",
+                rating: 4.5,
+                reviews: 27
+            },
+            {
+                id: 11,
+                name: "Benelli M4 Tactical",
+                price: 1899,
+                image: "https://images.unsplash.com/photo-1556909114-44e2b9a6a9f6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+                category: "shotgun",
+                description: "12 Gauge - Semi-Automatic - 18.5\" Barrel - 5+1 Capacity",
+                rating: 5,
+                reviews: 33
+            },
+            {
+                id: 12,
+                name: "Barrett M82A1",
+                price: 8999,
+                image: "https://images.unsplash.com/photo-1556909114-44e2b9a6a9f6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+                category: "sniper",
+                description: ".50 BMG - Semi-Automatic - 29\" Barrel - 10 Round Magazine",
+                rating: 5,
+                reviews: 8
+            }
+        ];
+
+        // Cart functionality
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        
+        // DOM elements
+        const cartBtn = document.getElementById('cart-btn');
+        const mobileCartBtn = document.getElementById('mobile-cart-btn');
+        const closeCartBtn = document.getElementById('close-cart');
+        const cartSidebar = document.getElementById('cart-sidebar');
+        const cartOverlay = document.getElementById('cart-overlay');
+        const cartItemsContainer = document.getElementById('cart-items');
+        const emptyCartMessage = document.getElementById('empty-cart-message');
+        const cartSummary = document.getElementById('cart-summary');
+        const cartSubtotal = document.getElementById('cart-subtotal');
+        const cartCount = document.getElementById('cart-count');
+        const mobileCartCount = document.getElementById('mobile-cart-count');
+        const checkoutBtn = document.getElementById('checkout-btn');
+        const checkoutModal = document.getElementById('checkout-modal');
+        const closeCheckoutBtn = document.getElementById('close-checkout');
+        const checkoutForm = document.getElementById('checkout-form');
+        const checkoutSummary = document.getElementById('checkout-summary');
+        const checkoutTotal = document.getElementById('checkout-total');
+        const confirmationModal = document.getElementById('confirmation-modal');
+        const closeConfirmationBtn = document.getElementById('close-confirmation');
+        const productsGrid = document.getElementById('products-grid');
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        const addToCartBtns = document.querySelectorAll('.add-to-cart');
+        
+        // Mobile menu
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        // Navigation links
+        const navLinks = {
+            home: document.getElementById('home-link'),
+            shop: document.getElementById('shop-link'),
+            ammo: document.getElementById('ammo-link'),
+            gear: document.getElementById('gear-link'),
+            about: document.getElementById('about-link')
+        };
+        
+        // Sections
+        const sections = {
+            home: document.getElementById('home'),
+            shop: document.getElementById('shop'),
+            ammo: document.getElementById('ammo'),
+            gear: document.getElementById('gear'),
+            about: document.getElementById('about')
+        };
+        
+        // Initialize the page
+        function init() {
+            renderProducts();
+            updateCartCount();
+            setupEventListeners();
+        }
+        
+        // Render products to the shop grid
+        function renderProducts(filter = 'all') {
+            productsGrid.innerHTML = '';
+            
+            const filteredProducts = filter === 'all' 
+                ? products 
+                : products.filter(product => product.category === filter);
+            
+            filteredProducts.forEach(product => {
+                const productElement = document.createElement('div');
+                productElement.className = 'bg-gray-700 rounded-lg overflow-hidden shadow-lg weapon-card transition duration-300';
+                productElement.innerHTML = `
+                    <div class="relative">
+                        <img class="w-full h-64 object-cover" src="${product.image}" alt="${product.name}">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white mb-2">${product.name}</h3>
+                        <div class="flex items-center mb-2">
+                            ${renderStars(product.rating)}
+                            <span class="text-gray-300 text-sm ml-2">(${product.reviews} reviews)</span>
+                        </div>
+                        <p class="text-gray-300 text-sm mb-4">${product.description}</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-white">$${product.price.toLocaleString()}</span>
+                            <button class="add-to-cart bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md transition duration-300" 
+                                    data-id="${product.id}" 
+                                    data-name="${product.name}" 
+                                    data-price="${product.price}" 
+                                    data-image="${product.image}">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                `;
+                productsGrid.appendChild(productElement);
+            });
+            
+            // Re-attach event listeners to new add to cart buttons
+            document.querySelectorAll('.add-to-cart').forEach(btn => {
+                btn.addEventListener('click', addToCart);
+            });
+        }
+        
+        // Render star rating
+        function renderStars(rating) {
+            let stars = '';
+            const fullStars = Math.floor(rating);
+            const hasHalfStar = rating % 1 >= 0.5;
+            
+            for (let i = 0; i < fullStars; i++) {
+                stars += '<i class="fas fa-star"></i>';
+            }
+            
+            if (hasHalfStar) {
+                stars += '<i class="fas fa-star-half-alt"></i>';
+            }
+            
+            const emptyStars = 5 - Math.ceil(rating);
+            for (let i = 0; i < emptyStars; i++) {
+                stars += '<i class="far fa-star"></i>';
+            }
+            
+            return `<div class="flex text-yellow-400">${stars}</div>`;
+        }
+        
+        // Add to cart function
+        function addToCart(e) {
+            const btn = e.target;
+            const id = btn.getAttribute('data-id');
+            const name = btn.getAttribute('data-name');
+            const price = parseFloat(btn.getAttribute('data-price'));
+            const image = btn.getAttribute('data-image');
+            
+            // Check if item already exists in cart
+            const existingItem = cart.find(item => item.id === id);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id,
+                    name,
+                    price,
+                    image,
+                    quantity: 1
+                });
+            }
+            
+            // Update cart in localStorage
+            localStorage.setItem('cart', JSON.stringify(cart));
+            
+            // Update UI
+            updateCartCount();
+            renderCartItems();
+            
+            // Show cart sidebar if not already visible
+            if (!cartSidebar.classList.contains('translate-x-0')) {
+                openCart();
+            }
+            
+            // Add animation class to the newly added item
+            const lastItem = document.querySelector('#cart-items > div:last-child');
+            if (lastItem) {
+                lastItem.classList.add('cart-item-enter');
+                setTimeout(() => {
+                    lastItem.classList.remove('cart-item-enter');
+                }, 300);
+            }
+            
+            // Show success message
+            const successMsg = document.createElement('div');
+            successMsg.className = 'fixed top-4 right-4 bg-green-600 text-white px-4 py-2 rounded-md shadow-lg z-50 animate-bounce';
+            successMsg.textContent = `${name} added to cart!`;
+            document.body.appendChild(successMsg);
+            
+            setTimeout(() => {
+                successMsg.remove();
+            }, 2000);
+        }
+        
+        // Remove from cart function
+        function removeFromCart(id) {
+            const itemIndex = cart.findIndex(item => item.id === id);
+            
+            if (itemIndex !== -1) {
+                const item = cart[itemIndex];
+                
+                // Add animation class before removal
+                const itemElement = document.querySelector(`#cart-items > div[data-id="${id}"]`);
+                if (itemElement) {
+                    itemElement.classList.add('cart-item-exit');
+                    
+                    setTimeout(() => {
+                        if (item.quantity > 1) {
+                            item.quantity -= 1;
+                            localStorage.setItem('cart', JSON.stringify(cart));
+                            renderCartItems();
+                            updateCartCount();
+                        } else {
+                            cart.splice(itemIndex, 1);
+                            localStorage.setItem('cart', JSON.stringify(cart));
+                            renderCartItems();
+                            updateCartCount();
+                        }
+                    }, 300);
+                }
+            }
+        }
+        
+        // Render cart items
+        function renderCartItems() {
+            cartItemsContainer.innerHTML = '';
+            
+            if (cart.length === 0) {
+                emptyCartMessage.classList.remove('hidden');
+                cartSummary.classList.add('hidden');
+                return;
+            }
+            
+            emptyCartMessage.classList.add('hidden');
+            cartSummary.classList.remove('hidden');
+            
+            let subtotal = 0;
+            
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                subtotal += itemTotal;
+                
+                const cartItem = document.createElement('div');
+                cartItem.className = 'flex items-center p-3 bg-gray-700 rounded-md';
+                cartItem.setAttribute('data-id', item.id);
+                cartItem.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded-md">
+                    <div class="ml-4 flex-1">
+                        <h3 class="text-white font-medium">${item.name}</h3>
+                        <p class="text-gray-300 text-sm">$${item.price.toLocaleString()} x ${item.quantity}</p>
+                        <p class="text-white font-bold">$${itemTotal.toLocaleString()}</p>
+                    </div>
+                    <button class="remove-from-cart text-red-500 hover:text-red-400 ml-2" data-id="${item.id}">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                cartItemsContainer.appendChild(cartItem);
+            });
+            
+            // Update subtotal
+            cartSubtotal.textContent = `$${subtotal.toLocaleString()}`;
+            checkoutTotal.textContent = `$${subtotal.toLocaleString()}`;
+            
+            // Re-attach event listeners to remove buttons
+            document.querySelectorAll('.remove-from-cart').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const id = e.target.closest('button').getAttribute('data-id');
+                    removeFromCart(id);
+                });
+            });
+            
+            // Update checkout summary
+            updateCheckoutSummary();
+        }
+        
+        // Update checkout summary
+        function updateCheckoutSummary() {
+            let summaryHTML = '';
+            let subtotal = 0;
+            
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                subtotal += itemTotal;
+                
+                summaryHTML += `
+                    <div class="flex justify-between mb-1">
+                        <span>${item.name} x ${item.quantity}</span>
+                        <span>$${itemTotal.toLocaleString()}</span>
+                    </div>
+                `;
+            });
+            
+            checkoutSummary.innerHTML = summaryHTML;
+            checkoutTotal.textContent = `$${subtotal.toLocaleString()}`;
+        }
+        
+        // Update cart count
+        function updateCartCount() {
+            const count = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCount.textContent = count;
+            mobileCartCount.textContent = count;
+        }
+        
+        // Open cart sidebar
+        function openCart() {
+            cartSidebar.classList.remove('translate-x-full');
+            cartSidebar.classList.add('translate-x-0');
+            cartOverlay.classList.remove('hidden');
+            document.body.classList.add('overflow-hidden');
+        }
+        
+        // Close cart sidebar
+        function closeCart() {
+            cartSidebar.classList.remove('translate-x-0');
+            cartSidebar.classList.add('translate-x-full');
+            cartOverlay.classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+        }
+        
+        // Open checkout modal
+        function openCheckout() {
+            closeCart();
+            checkoutModal.classList.remove('hidden');
+            document.body.classList.add('overflow-hidden');
+        }
+        
+        // Close checkout modal
+        function closeCheckout() {
+            checkoutModal.classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+        }
+        
+        // Show confirmation modal
+        function showConfirmation() {
+            closeCheckout();
+            confirmationModal.classList.remove('hidden');
+            document.body.classList.add('overflow-hidden');
+        }
+        
+        // Close confirmation modal
+        function closeConfirmation() {
+            confirmationModal.classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+        }
+        
+        // Setup event listeners
+        function setupEventListeners() {
+            // Cart buttons
+            cartBtn.addEventListener('click', openCart);
+            mobileCartBtn.addEventListener('click', openCart);
+            closeCartBtn.addEventListener('click', closeCart);
+            cartOverlay.addEventListener('click', closeCart);
+            
+            // Checkout buttons
+            checkoutBtn.addEventListener('click', openCheckout);
+            closeCheckoutBtn.addEventListener('click', closeCheckout);
+            
+            // Confirmation modal
+            closeConfirmationBtn.addEventListener('click', closeConfirmation);
+            
+            // Checkout form
+            checkoutForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                // In a real app, you would process the payment here
+                showConfirmation();
+                
+                // Clear the cart
+                cart = [];
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCartCount();
+                renderCartItems();
+            });
+            
+            // Mobile menu
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            // Category filters
+            categoryBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    categoryBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    const category = btn.getAttribute('data-category');
+                    renderProducts(category);
+                });
+            });
+            
+            // Add to cart buttons
+            addToCartBtns.forEach(btn => {
+                btn.addEventListener('click', addToCart);
+            });
+            
+            // Navigation links
+            Object.keys(navLinks).forEach(key => {
+                navLinks[key].addEventListener('click', (e) => {
+                    e.preventDefault();
+                    sections[key].scrollIntoView({ behavior: 'smooth' });
+                    
+                    // Close mobile menu if open
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                });
+            });
+        }
+        
+        // Initialize the app
+        init();
+    </script>
+</body>
+</html>
