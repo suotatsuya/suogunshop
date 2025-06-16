@@ -7,1232 +7,671 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Custom CSS for enhancements */
-        .hero-gradient {
-            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
+        /* Custom CSS */
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1511497584788-876760111969?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 90vh;
         }
-        .weapon-card:hover {
+        
+        .category-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .product-card:hover {
+            transform: scale(1.03);
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
         }
-        .category-btn.active {
-            background-color: #b91c1c;
+        
+        .payment-method:hover {
+            background-color: #1a202c;
             color: white;
         }
-        .payment-method.active {
-            border-color: #b91c1c;
-            background-color: rgba(185, 28, 28, 0.1);
-        }
-        .cart-item {
+        
+        .modal {
             transition: all 0.3s ease;
         }
-        .cart-item:hover {
-            background-color: rgba(255, 255, 255, 0.05);
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
         }
-        .nav-link:hover {
-            color: #b91c1c;
+        
+        ::-webkit-scrollbar-track {
+            background: #1a202c;
         }
-        .nav-link.active {
-            color: #b91c1c;
-            border-bottom: 2px solid #b91c1c;
+        
+        ::-webkit-scrollbar-thumb {
+            background: #4a5568;
+            border-radius: 4px;
         }
-        .dropdown:hover .dropdown-menu {
-            display: block;
-        }
-        .ammo-badge {
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            background-color: #b91c1c;
-            color: white;
-            border-radius: 50%;
-            width: 24px;
-            height: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-        }
-        .checkout-step.active {
-            color: #b91c1c;
-            border-bottom: 2px solid #b91c1c;
-        }
-        .checkout-step.completed {
-            color: #10b981;
-            border-bottom: 2px solid #10b981;
-        }
-        .fade-in {
-            animation: fadeIn 0.5s ease-in-out;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #718096;
         }
     </style>
 </head>
 <body class="bg-gray-900 text-gray-100 font-sans">
     <!-- Navigation -->
     <nav class="bg-gray-800 sticky top-0 z-50 shadow-lg">
-        <div class="container mx-auto px-4">
-            <div class="flex justify-between items-center py-4">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
                 <div class="flex items-center space-x-4">
-                    <a href="#" class="text-2xl font-bold text-red-600" onclick="showHome()">SUO GUNSHOP</a>
-                    <div class="hidden md:flex space-x-6">
-                        <a href="#" class="nav-link active" onclick="showHome()">Beranda</a>
-                        <div class="dropdown relative">
-                            <button class="nav-link flex items-center" onclick="showProducts()">
-                                Produk <i class="fas fa-chevron-down ml-1 text-xs"></i>
-                            </button>
-                            <div class="dropdown-menu absolute hidden bg-gray-800 mt-2 py-2 w-48 rounded shadow-lg z-50">
-                                <a href="#" class="block px-4 py-2 hover:bg-gray-700" onclick="filterProducts('pistol')">Pistol</a>
-                                <a href="#" class="block px-4 py-2 hover:bg-gray-700" onclick="filterProducts('rifle')">Rifle</a>
-                                <a href="#" class="block px-4 py-2 hover:bg-gray-700" onclick="filterProducts('shotgun')">Shotgun</a>
-                                <a href="#" class="block px-4 py-2 hover:bg-gray-700" onclick="filterProducts('sniper')">Sniper</a>
-                                <a href="#" class="block px-4 py-2 hover:bg-gray-700" onclick="filterProducts('ammo')">Ammunition</a>
-                                <a href="#" class="block px-4 py-2 hover:bg-gray-700" onclick="filterProducts('gear')">Tactical Gear</a>
-                            </div>
-                        </div>
-                        <a href="#" class="nav-link" onclick="showAbout()">Tentang Kami</a>
-                        <a href="#" class="nav-link" onclick="showContact()">Kontak</a>
+                    <div class="flex items-center">
+                        <i class="fas fa-gun text-red-500 text-2xl mr-2"></i>
+                        <span class="text-xl font-bold text-white">Suo GunShop</span>
                     </div>
                 </div>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="text-white hover:text-red-400 transition">Beranda</a>
+                    <a href="#products" class="text-white hover:text-red-400 transition">Produk</a>
+                    <a href="#ammo" class="text-white hover:text-red-400 transition">Peluru</a>
+                    <a href="#gear" class="text-white hover:text-red-400 transition">Gear</a>
+                    <a href="#about" class="text-white hover:text-red-400 transition">Tentang Kami</a>
+                </div>
+                
                 <div class="flex items-center space-x-4">
-                    <button class="relative" onclick="toggleCart()">
+                    <a href="#cart" class="text-white hover:text-red-400 transition relative">
                         <i class="fas fa-shopping-cart text-xl"></i>
-                        <span id="cart-count" class="ammo-badge hidden">0</span>
-                    </button>
-                    <button class="md:hidden" onclick="toggleMobileMenu()">
+                        <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                    </a>
+                    <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
                         <i class="fas fa-bars text-xl"></i>
                     </button>
                 </div>
             </div>
-            <!-- Mobile Menu -->
-            <div id="mobile-menu" class="md:hidden hidden pb-4">
-                <a href="#" class="block py-2 px-4 hover:bg-gray-700" onclick="showHome()">Beranda</a>
-                <a href="#" class="block py-2 px-4 hover:bg-gray-700" onclick="showProducts()">Produk</a>
-                <a href="#" class="block py-2 px-4 hover:bg-gray-700" onclick="showAbout()">Tentang Kami</a>
-                <a href="#" class="block py-2 px-4 hover:bg-gray-700" onclick="showContact()">Kontak</a>
+            
+            <!-- Mobile menu -->
+            <div id="mobile-menu" class="md:hidden hidden mt-4 pb-4">
+                <a href="#home" class="block py-2 text-white hover:text-red-400 transition">Beranda</a>
+                <a href="#products" class="block py-2 text-white hover:text-red-400 transition">Produk</a>
+                <a href="#ammo" class="block py-2 text-white hover:text-red-400 transition">Peluru</a>
+                <a href="#gear" class="block py-2 text-white hover:text-red-400 transition">Gear</a>
+                <a href="#about" class="block py-2 text-white hover:text-red-400 transition">Tentang Kami</a>
             </div>
         </div>
     </nav>
 
-    <!-- Shopping Cart Sidebar -->
-    <div id="cart-sidebar" class="fixed top-0 right-0 h-full w-full md:w-96 bg-gray-800 shadow-xl transform translate-x-full transition-transform duration-300 ease-in-out z-50 overflow-y-auto">
-        <div class="p-4 flex justify-between items-center border-b border-gray-700">
-            <h3 class="text-xl font-bold">Keranjang Belanja</h3>
-            <button onclick="toggleCart()" class="text-gray-400 hover:text-white">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        <div id="cart-items" class="p-4">
-            <!-- Cart items will be added here dynamically -->
-            <p class="text-gray-400 text-center py-8">Keranjang belanja Anda kosong</p>
-        </div>
-        <div class="p-4 border-t border-gray-700">
-            <div class="flex justify-between mb-4">
-                <span class="font-semibold">Total:</span>
-                <span id="cart-total" class="font-bold">Rp 0</span>
-            </div>
-            <button onclick="showCheckout()" class="w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded font-semibold transition duration-300">
-                Checkout (Rp <span id="checkout-total">0</span>)
-            </button>
-        </div>
-    </div>
-
-    <!-- Overlay -->
-    <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
-
-    <!-- Main Content -->
-    <main id="main-content">
-        <!-- Home Section -->
-        <section id="home-section" class="fade-in">
-            <!-- Hero Section -->
-            <div class="hero-gradient py-20">
-                <div class="container mx-auto px-4">
-                    <div class="flex flex-col md:flex-row items-center">
-                        <div class="md:w-1/2 mb-10 md:mb-0">
-                            <h1 class="text-4xl md:text-5xl font-bold mb-4">PREMIUM FIREARMS & TACTICAL GEAR</h1>
-                            <p class="text-xl mb-8 text-gray-300">Senjata api berkualitas tinggi dan peralatan taktis untuk profesional dan penggemar.</p>
-                            <button onclick="showProducts()" class="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-semibold transition duration-300">
-                                Lihat Koleksi Kami
-                            </button>
-                        </div>
-                        <div class="md:w-1/2 flex justify-center">
-                            <img src="https://images.unsplash.com/photo-1597347343906-7ff74106c0a0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Premium Firearms" class="rounded-lg shadow-xl max-w-full h-auto max-h-96">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Featured Categories -->
-            <div class="container mx-auto px-4 py-16">
-                <h2 class="text-3xl font-bold mb-12 text-center">KATEGORI PRODUK</h2>
-                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-                    <div class="bg-gray-800 rounded-lg p-6 text-center hover:bg-gray-700 transition duration-300 cursor-pointer" onclick="filterProducts('pistol')">
-                        <i class="fas fa-gun text-4xl mb-4 text-red-600"></i>
-                        <h3 class="font-semibold">Pistol</h3>
-                    </div>
-                    <div class="bg-gray-800 rounded-lg p-6 text-center hover:bg-gray-700 transition duration-300 cursor-pointer" onclick="filterProducts('rifle')">
-                        <i class="fas fa-gun text-4xl mb-4 text-red-600"></i>
-                        <h3 class="font-semibold">Rifle</h3>
-                    </div>
-                    <div class="bg-gray-800 rounded-lg p-6 text-center hover:bg-gray-700 transition duration-300 cursor-pointer" onclick="filterProducts('shotgun')">
-                        <i class="fas fa-gun text-4xl mb-4 text-red-600"></i>
-                        <h3 class="font-semibold">Shotgun</h3>
-                    </div>
-                    <div class="bg-gray-800 rounded-lg p-6 text-center hover:bg-gray-700 transition duration-300 cursor-pointer" onclick="filterProducts('sniper')">
-                        <i class="fas fa-crosshairs text-4xl mb-4 text-red-600"></i>
-                        <h3 class="font-semibold">Sniper</h3>
-                    </div>
-                    <div class="bg-gray-800 rounded-lg p-6 text-center hover:bg-gray-700 transition duration-300 cursor-pointer" onclick="filterProducts('ammo')">
-                        <i class="fas fa-bullseye text-4xl mb-4 text-red-600"></i>
-                        <h3 class="font-semibold">Ammunition</h3>
-                    </div>
-                    <div class="bg-gray-800 rounded-lg p-6 text-center hover:bg-gray-700 transition duration-300 cursor-pointer" onclick="filterProducts('gear')">
-                        <i class="fas fa-vest text-4xl mb-4 text-red-600"></i>
-                        <h3 class="font-semibold">Tactical Gear</h3>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Featured Products -->
-            <div class="bg-gray-800 py-16">
-                <div class="container mx-auto px-4">
-                    <h2 class="text-3xl font-bold mb-12 text-center">PRODUK TERBARU</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                        <!-- Product cards will be added here dynamically -->
-                    </div>
-                    <div class="text-center mt-10">
-                        <button onclick="showProducts()" class="border border-red-600 text-red-600 hover:bg-red-600 hover:text-white px-6 py-3 rounded-lg font-semibold transition duration-300">
-                            Lihat Semua Produk
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Testimonials -->
-            <div class="container mx-auto px-4 py-16">
-                <h2 class="text-3xl font-bold mb-12 text-center">TESTIMONI PELANGGAN</h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div class="bg-gray-800 p-6 rounded-lg">
-                        <div class="flex items-center mb-4">
-                            <div class="w-12 h-12 rounded-full bg-gray-700 flex items-center justify-center text-xl mr-4">A</div>
-                            <div>
-                                <h4 class="font-semibold">Andi S.</h4>
-                                <div class="flex text-yellow-400">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <p class="text-gray-300">"Berbelanja di Suo GunShop sangat memuaskan. Produk asli dan pengiriman cepat. Sangat direkomendasikan!"</p>
-                    </div>
-                    <div class="bg-gray-800 p-6 rounded-lg">
-                        <div class="flex items-center mb-4">
-                            <div class="w-12 h-12 rounded-full bg-gray-700 flex items-center justify-center text-xl mr-4">B</div>
-                            <div>
-                                <h4 class="font-semibold">Budi K.</h4>
-                                <div class="flex text-yellow-400">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star-half-alt"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <p class="text-gray-300">"Koleksi senjata sangat lengkap dan harga kompetitif. Pelayanan CS juga ramah dan profesional."</p>
-                    </div>
-                    <div class="bg-gray-800 p-6 rounded-lg">
-                        <div class="flex items-center mb-4">
-                            <div class="w-12 h-12 rounded-full bg-gray-700 flex items-center justify-center text-xl mr-4">C</div>
-                            <div>
-                                <h4 class="font-semibold">Citra L.</h4>
-                                <div class="flex text-yellow-400">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <p class="text-gray-300">"Peralatan taktis yang saya beli kualitasnya sangat bagus. Packaging juga rapi dan aman. Terima kasih Suo GunShop!"</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Products Section -->
-        <section id="products-section" class="hidden fade-in">
-            <div class="container mx-auto px-4 py-12">
-                <div class="flex flex-col md:flex-row justify-between items-center mb-8">
-                    <h2 class="text-3xl font-bold">SEMUA PRODUK</h2>
-                    <div class="flex space-x-2 mt-4 md:mt-0">
-                        <button id="all-btn" class="category-btn active px-4 py-2 rounded" onclick="filterProducts('all')">Semua</button>
-                        <button id="pistol-btn" class="category-btn px-4 py-2 rounded" onclick="filterProducts('pistol')">Pistol</button>
-                        <button id="rifle-btn" class="category-btn px-4 py-2 rounded" onclick="filterProducts('rifle')">Rifle</button>
-                        <button id="shotgun-btn" class="category-btn px-4 py-2 rounded" onclick="filterProducts('shotgun')">Shotgun</button>
-                        <button id="sniper-btn" class="category-btn px-4 py-2 rounded" onclick="filterProducts('sniper')">Sniper</button>
-                        <button id="ammo-btn" class="category-btn px-4 py-2 rounded" onclick="filterProducts('ammo')">Ammo</button>
-                        <button id="gear-btn" class="category-btn px-4 py-2 rounded" onclick="filterProducts('gear')">Gear</button>
-                    </div>
-                </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                    <!-- Product cards will be added here dynamically -->
-                </div>
-            </div>
-        </section>
-
-        <!-- About Section -->
-        <section id="about-section" class="hidden fade-in">
-            <div class="container mx-auto px-4 py-16">
-                <div class="flex flex-col md:flex-row items-center">
-                    <div class="md:w-1/2 mb-10 md:mb-0 md:pr-10">
-                        <h2 class="text-3xl font-bold mb-6">TENTANG SUO GUNSHOP</h2>
-                        <p class="mb-4 text-gray-300">Suo GunShop didirikan pada tahun 2010 dengan misi untuk menyediakan senjata api berkualitas tinggi dan peralatan taktis untuk profesional, kolektor, dan penggemar.</p>
-                        <p class="mb-4 text-gray-300">Kami bekerja langsung dengan produsen senjata terkemuka di dunia untuk memastikan produk yang kami jual adalah asli dan memiliki kualitas terbaik.</p>
-                        <p class="mb-6 text-gray-300">Tim kami terdiri dari para ahli senjata dengan pengalaman bertahun-tahun di industri ini, siap memberikan rekomendasi terbaik untuk kebutuhan Anda.</p>
-                        <div class="flex space-x-4">
-                            <div class="bg-gray-800 p-4 rounded-lg text-center flex-1">
-                                <div class="text-3xl font-bold text-red-600 mb-2">10+</div>
-                                <div class="text-sm">Tahun Pengalaman</div>
-                            </div>
-                            <div class="bg-gray-800 p-4 rounded-lg text-center flex-1">
-                                <div class="text-3xl font-bold text-red-600 mb-2">500+</div>
-                                <div class="text-sm">Produk Tersedia</div>
-                            </div>
-                            <div class="bg-gray-800 p-4 rounded-lg text-center flex-1">
-                                <div class="text-3xl font-bold text-red-600 mb-2">1000+</div>
-                                <div class="text-sm">Pelanggan Puas</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="md:w-1/2">
-                        <img src="https://images.unsplash.com/photo-1583947581924-860bda6f26d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="About Us" class="rounded-lg shadow-xl w-full">
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact-section" class="hidden fade-in">
-            <div class="container mx-auto px-4 py-16">
-                <h2 class="text-3xl font-bold mb-12 text-center">HUBUNGI KAMI</h2>
-                <div class="flex flex-col md:flex-row">
-                    <div class="md:w-1/2 mb-10 md:mb-0 md:pr-10">
-                        <h3 class="text-xl font-semibold mb-4">Informasi Kontak</h3>
-                        <div class="space-y-4">
-                            <div class="flex items-start">
-                                <i class="fas fa-map-marker-alt text-red-600 mt-1 mr-4"></i>
-                                <div>
-                                    <h4 class="font-semibold">Alamat</h4>
-                                    <p class="text-gray-300">Jl. Senjata No. 123, Jakarta Selatan, Indonesia</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start">
-                                <i class="fas fa-phone-alt text-red-600 mt-1 mr-4"></i>
-                                <div>
-                                    <h4 class="font-semibold">Telepon</h4>
-                                    <p class="text-gray-300">+62 21 1234 5678</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start">
-                                <i class="fas fa-envelope text-red-600 mt-1 mr-4"></i>
-                                <div>
-                                    <h4 class="font-semibold">Email</h4>
-                                    <p class="text-gray-300">info@suogunshop.com</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start">
-                                <i class="fas fa-clock text-red-600 mt-1 mr-4"></i>
-                                <div>
-                                    <h4 class="font-semibold">Jam Operasional</h4>
-                                    <p class="text-gray-300">Senin - Sabtu: 09:00 - 17:00 WIB</p>
-                                </div>
-                            </div>
-                        </div>
-                        <h3 class="text-xl font-semibold mt-8 mb-4">Sosial Media</h3>
-                        <div class="flex space-x-4">
-                            <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-red-600 transition duration-300">
-                                <i class="fab fa-facebook-f"></i>
-                            </a>
-                            <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-red-600 transition duration-300">
-                                <i class="fab fa-instagram"></i>
-                            </a>
-                            <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-red-600 transition duration-300">
-                                <i class="fab fa-twitter"></i>
-                            </a>
-                            <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-red-600 transition duration-300">
-                                <i class="fab fa-whatsapp"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="md:w-1/2">
-                        <h3 class="text-xl font-semibold mb-4">Kirim Pesan</h3>
-                        <form class="space-y-4">
-                            <div>
-                                <label for="name" class="block mb-1">Nama Lengkap</label>
-                                <input type="text" id="name" class="w-full bg-gray-800 border border-gray-700 rounded px-4 py-2 focus:outline-none focus:border-red-600">
-                            </div>
-                            <div>
-                                <label for="email" class="block mb-1">Email</label>
-                                <input type="email" id="email" class="w-full bg-gray-800 border border-gray-700 rounded px-4 py-2 focus:outline-none focus:border-red-600">
-                            </div>
-                            <div>
-                                <label for="phone" class="block mb-1">Nomor Telepon</label>
-                                <input type="tel" id="phone" class="w-full bg-gray-800 border border-gray-700 rounded px-4 py-2 focus:outline-none focus:border-red-600">
-                            </div>
-                            <div>
-                                <label for="message" class="block mb-1">Pesan</label>
-                                <textarea id="message" rows="4" class="w-full bg-gray-800 border border-gray-700 rounded px-4 py-2 focus:outline-none focus:border-red-600"></textarea>
-                            </div>
-                            <button type="submit" class="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded font-semibold transition duration-300">
-                                Kirim Pesan
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Checkout Section -->
-        <section id="checkout-section" class="hidden fade-in">
-            <div class="container mx-auto px-4 py-12 max-w-4xl">
-                <h2 class="text-3xl font-bold mb-8">CHECKOUT</h2>
-                
-                <!-- Checkout Steps -->
-                <div class="flex justify-between mb-8">
-                    <div class="checkout-step active" data-step="1">1. Informasi Pengiriman</div>
-                    <div class="checkout-step" data-step="2">2. Metode Pembayaran</div>
-                    <div class="checkout-step" data-step="3">3. Konfirmasi</div>
-                </div>
-                
-                <!-- Step 1: Shipping Information -->
-                <div id="checkout-step-1" class="checkout-step-content">
-                    <h3 class="text-xl font-semibold mb-4">Informasi Pengiriman</h3>
-                    <form class="space-y-4">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <label for="first-name" class="block mb-1">Nama Depan</label>
-                                <input type="text" id="first-name" class="w-full bg-gray-800 border border-gray-700 rounded px-4 py-2 focus:outline-none focus:border-red-600" required>
-                            </div>
-                            <div>
-                                <label for="last-name" class="block mb-1">Nama Belakang</label>
-                                <input type="text" id="last-name" class="w-full bg-gray-800 border border-gray-700 rounded px-4 py-2 focus:outline-none focus:border-red-600" required>
-                            </div>
-                        </div>
-                        <div>
-                            <label for="address" class="block mb-1">Alamat Lengkap</label>
-                            <textarea id="address" rows="3" class="w-full bg-gray-800 border border-gray-700 rounded px-4 py-2 focus:outline-none focus:border-red-600" required></textarea>
-                        </div>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            <div>
-                                <label for="city" class="block mb-1">Kota</label>
-                                <input type="text" id="city" class="w-full bg-gray-800 border border-gray-700 rounded px-4 py-2 focus:outline-none focus:border-red-600" required>
-                            </div>
-                            <div>
-                                <label for="province" class="block mb-1">Provinsi</label>
-                                <select id="province" class="w-full bg-gray-800 border border-gray-700 rounded px-4 py-2 focus:outline-none focus:border-red-600" required>
-                                    <option value="">Pilih Provinsi</option>
-                                    <option value="DKI Jakarta">DKI Jakarta</option>
-                                    <option value="Jawa Barat">Jawa Barat</option>
-                                    <option value="Jawa Tengah">Jawa Tengah</option>
-                                    <option value="Jawa Timur">Jawa Timur</option>
-                                    <option value="Banten">Banten</option>
-                                    <option value="Bali">Bali</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label for="postal-code" class="block mb-1">Kode Pos</label>
-                                <input type="text" id="postal-code" class="w-full bg-gray-800 border border-gray-700 rounded px-4 py-2 focus:outline-none focus:border-red-600" required>
-                            </div>
-                        </div>
-                        <div>
-                            <label for="phone" class="block mb-1">Nomor Telepon</label>
-                            <input type="tel" id="phone" class="w-full bg-gray-800 border border-gray-700 rounded px-4 py-2 focus:outline-none focus:border-red-600" required>
-                        </div>
-                        <div class="flex justify-end">
-                            <button type="button" onclick="nextCheckoutStep(2)" class="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded font-semibold transition duration-300">
-                                Lanjut ke Pembayaran
-                            </button>
-                        </div>
-                    </form>
-                </div>
-                
-                <!-- Step 2: Payment Method -->
-                <div id="checkout-step-2" class="checkout-step-content hidden">
-                    <h3 class="text-xl font-semibold mb-4">Metode Pembayaran</h3>
-                    <div class="space-y-4 mb-6">
-                        <div class="payment-method p-4 border border-gray-700 rounded cursor-pointer" onclick="selectPaymentMethod('cod')">
-                            <div class="flex items-center">
-                                <input type="radio" name="payment-method" id="cod" class="mr-3" checked>
-                                <label for="cod" class="flex-1">
-                                    <div class="font-semibold">Cash on Delivery (COD)</div>
-                                    <div class="text-sm text-gray-400">Bayar saat barang diterima</div>
-                                </label>
-                                <i class="fas fa-motorcycle text-xl text-red-600"></i>
-                            </div>
-                        </div>
-                        <div class="payment-method p-4 border border-gray-700 rounded cursor-pointer" onclick="selectPaymentMethod('gopay')">
-                            <div class="flex items-center">
-                                <input type="radio" name="payment-method" id="gopay" class="mr-3">
-                                <label for="gopay" class="flex-1">
-                                    <div class="font-semibold">Gopay</div>
-                                    <div class="text-sm text-gray-400">Transfer via Gopay</div>
-                                </label>
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/GoPay_logo.svg/1200px-GoPay_logo.svg.png" alt="Gopay" class="h-6">
-                            </div>
-                            <div id="gopay-details" class="mt-3 hidden bg-gray-800 p-3 rounded">
-                                <p class="text-sm mb-2">Silakan transfer ke nomor berikut:</p>
-                                <div class="flex items-center justify-between bg-gray-700 p-2 rounded">
-                                    <span>081234567890</span>
-                                    <button onclick="copyToClipboard('081234567890')" class="text-red-600 text-sm">Salin</button>
-                                </div>
-                                <p class="text-xs mt-2 text-gray-400">Setelah transfer, silakan upload bukti transfer di langkah berikutnya.</p>
-                            </div>
-                        </div>
-                        <div class="payment-method p-4 border border-gray-700 rounded cursor-pointer" onclick="selectPaymentMethod('dana')">
-                            <div class="flex items-center">
-                                <input type="radio" name="payment-method" id="dana" class="mr-3">
-                                <label for="dana" class="flex-1">
-                                    <div class="font-semibold">Dana</div>
-                                    <div class="text-sm text-gray-400">Transfer via Dana</div>
-                                </label>
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Logo_DANA.svg/1200px-Logo_DANA.svg.png" alt="Dana" class="h-6">
-                            </div>
-                            <div id="dana-details" class="mt-3 hidden bg-gray-800 p-3 rounded">
-                                <p class="text-sm mb-2">Silakan transfer ke nomor berikut:</p>
-                                <div class="flex items-center justify-between bg-gray-700 p-2 rounded">
-                                    <span>081234567890</span>
-                                    <button onclick="copyToClipboard('081234567890')" class="text-red-600 text-sm">Salin</button>
-                                </div>
-                                <p class="text-xs mt-2 text-gray-400">Setelah transfer, silakan upload bukti transfer di langkah berikutnya.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flex justify-between">
-                        <button type="button" onclick="prevCheckoutStep(1)" class="border border-gray-700 text-gray-300 hover:bg-gray-800 px-6 py-2 rounded font-semibold transition duration-300">
-                            Kembali
-                        </button>
-                        <button type="button" onclick="nextCheckoutStep(3)" class="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded font-semibold transition duration-300">
-                            Lanjut ke Konfirmasi
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Step 3: Confirmation -->
-                <div id="checkout-step-3" class="checkout-step-content hidden">
-                    <h3 class="text-xl font-semibold mb-4">Konfirmasi Pesanan</h3>
-                    <div class="bg-gray-800 rounded-lg p-6 mb-6">
-                        <h4 class="font-semibold mb-4">Ringkasan Pesanan</h4>
-                        <div id="checkout-items">
-                            <!-- Order items will be added here dynamically -->
-                        </div>
-                        <div class="border-t border-gray-700 pt-4 mt-4">
-                            <div class="flex justify-between mb-2">
-                                <span>Subtotal</span>
-                                <span id="checkout-subtotal">Rp 0</span>
-                            </div>
-                            <div class="flex justify-between mb-2">
-                                <span>Pengiriman</span>
-                                <span id="checkout-shipping">Rp 25,000</span>
-                            </div>
-                            <div class="flex justify-between font-bold text-lg">
-                                <span>Total</span>
-                                <span id="checkout-total-amount">Rp 0</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="bg-gray-800 rounded-lg p-6 mb-6">
-                        <h4 class="font-semibold mb-4">Informasi Pengiriman</h4>
-                        <div id="checkout-shipping-info">
-                            <!-- Shipping info will be added here dynamically -->
-                        </div>
-                    </div>
-                    
-                    <div class="bg-gray-800 rounded-lg p-6 mb-6">
-                        <h4 class="font-semibold mb-4">Metode Pembayaran</h4>
-                        <div id="checkout-payment-method">
-                            <!-- Payment method will be added here dynamically -->
-                        </div>
-                        <div id="payment-proof-upload" class="mt-4 hidden">
-                            <label class="block mb-2">Upload Bukti Transfer</label>
-                            <div class="border-2 border-dashed border-gray-700 rounded p-4 text-center">
-                                <input type="file" id="payment-proof" class="hidden">
-                                <label for="payment-proof" class="cursor-pointer">
-                                    <i class="fas fa-cloud-upload-alt text-3xl text-gray-500 mb-2"></i>
-                                    <p class="text-sm">Klik untuk upload bukti transfer</p>
-                                    <p class="text-xs text-gray-500">Format: JPG, PNG (Maks. 2MB)</p>
-                                </label>
-                            </div>
-                            <div id="payment-proof-preview" class="mt-2 hidden">
-                                <div class="flex items-center justify-between bg-gray-700 p-2 rounded">
-                                    <span class="truncate">bukti_transfer.jpg</span>
-                                    <button onclick="removePaymentProof()" class="text-red-600 text-sm">Hapus</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="flex items-center mb-6">
-                        <input type="checkbox" id="terms" class="mr-2" required>
-                        <label for="terms" class="text-sm">Saya menyetujui <a href="#" class="text-red-600">Syarat dan Ketentuan</a> serta <a href="#" class="text-red-600">Kebijakan Privasi</a> Suo GunShop</label>
-                    </div>
-                    
-                    <div class="flex justify-between">
-                        <button type="button" onclick="prevCheckoutStep(2)" class="border border-gray-700 text-gray-300 hover:bg-gray-800 px-6 py-2 rounded font-semibold transition duration-300">
-                            Kembali
-                        </button>
-                        <button type="button" onclick="placeOrder()" class="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded font-semibold transition duration-300">
-                            Konfirmasi Pesanan
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Order Confirmation Section -->
-        <section id="order-confirmation-section" class="hidden fade-in">
-            <div class="container mx-auto px-4 py-16 text-center max-w-2xl">
-                <div class="bg-gray-800 rounded-lg p-8">
-                    <div class="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
-                        <i class="fas fa-check text-3xl text-white"></i>
-                    </div>
-                    <h2 class="text-2xl font-bold mb-4">Pesanan Anda Telah Diterima!</h2>
-                    <p class="mb-6">Terima kasih telah berbelanja di Suo GunShop. Detail pesanan telah dikirim ke email Anda.</p>
-                    <div class="bg-gray-700 rounded-lg p-4 mb-6">
-                        <div class="font-semibold mb-2">Nomor Pesanan: <span id="order-number" class="text-red-600">SUO-20230615-001</span></div>
-                        <div>Total Pembayaran: <span id="order-total" class="font-semibold">Rp 12,500,000</span></div>
-                    </div>
-                    <div id="cod-instructions" class="mb-6">
-                        <p class="mb-2">Pesanan Anda akan diproses dan akan dikirimkan segera.</p>
-                        <p>Kurir kami akan menghubungi Anda untuk konfirmasi pengiriman.</p>
-                    </div>
-                    <div id="transfer-instructions" class="mb-6 hidden">
-                        <p class="mb-4">Silakan selesaikan pembayaran Anda ke:</p>
-                        <div class="bg-gray-700 rounded-lg p-4 mb-4">
-                            <div class="font-semibold" id="transfer-method">Gopay</div>
-                            <div class="text-lg" id="transfer-number">081234567890</div>
-                        </div>
-                        <p class="mb-2">Setelah transfer, Anda dapat mengirim bukti transfer melalui WhatsApp:</p>
-                        <a href="https://wa.me/6281234567890" class="inline-block bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded font-semibold transition duration-300">
-                            <i class="fab fa-whatsapp mr-2"></i> Kirim Bukti Transfer
-                        </a>
-                    </div>
-                    <div class="flex justify-center space-x-4">
-                        <button onclick="showHome()" class="border border-gray-700 text-gray-300 hover:bg-gray-800 px-6 py-2 rounded font-semibold transition duration-300">
-                            Kembali ke Beranda
-                        </button>
-                        <button onclick="showProducts()" class="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded font-semibold transition duration-300">
-                            Lanjut Belanja
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer class="bg-gray-800 py-12">
+    <!-- Hero Section -->
+    <section id="home" class="hero-section flex items-center justify-center text-center">
         <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <div>
-                    <h3 class="text-xl font-bold text-red-600 mb-4">SUO GUNSHOP</h3>
-                    <p class="text-gray-400">Penyedia senjata api berkualitas tinggi dan peralatan taktis untuk profesional dan penggemar.</p>
+            <h1 class="text-4xl md:text-6xl font-bold mb-6 text-white">SUO GUNSHOP</h1>
+            <p class="text-xl md:text-2xl mb-8 text-gray-300">Premium Firearms & Tactical Equipment</p>
+            <div class="flex justify-center space-x-4">
+                <a href="#products" class="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-semibold transition">BELI SEKARANG</a>
+                <a href="#about" class="bg-gray-700 hover:bg-gray-600 text-white px-6 py-3 rounded-lg font-semibold transition">TENTANG KAMI</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="py-16 bg-gray-800">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-12 text-center">KATEGORI PRODUK</h2>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="category-card bg-gray-700 rounded-lg overflow-hidden shadow-lg transition duration-300">
+                    <div class="h-48 bg-gray-600 flex items-center justify-center">
+                        <i class="fas fa-gun text-6xl text-red-500"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Pistol</h3>
+                        <p class="text-gray-300">Berbagai jenis pistol dari merek ternama</p>
+                        <a href="#pistols" class="mt-4 inline-block text-red-400 hover:text-red-300 transition">Lihat Produk →</a>
+                    </div>
                 </div>
-                <div>
-                    <h4 class="font-semibold mb-4">Produk</h4>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-400 hover:text-red-600" onclick="filterProducts('pistol')">Pistol</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-red-600" onclick="filterProducts('rifle')">Rifle</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-red-600" onclick="filterProducts('shotgun')">Shotgun</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-red-600" onclick="filterProducts('sniper')">Sniper</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-red-600" onclick="filterProducts('ammo')">Ammunition</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-red-600" onclick="filterProducts('gear')">Tactical Gear</a></li>
-                    </ul>
+                
+                <div class="category-card bg-gray-700 rounded-lg overflow-hidden shadow-lg transition duration-300">
+                    <div class="h-48 bg-gray-600 flex items-center justify-center">
+                        <i class="fas fa-gun text-6xl text-red-500"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Senapan</h3>
+                        <p class="text-gray-300">Senapan untuk berbagai kebutuhan</p>
+                        <a href="#rifles" class="mt-4 inline-block text-red-400 hover:text-red-300 transition">Lihat Produk →</a>
+                    </div>
                 </div>
-                <div>
-                    <h4 class="font-semibold mb-4">Tautan Cepat</h4>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-400 hover:text-red-600" onclick="showAbout()">Tentang Kami</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-red-600" onclick="showContact()">Kontak</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-red-600">Syarat & Ketentuan</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-red-600">Kebijakan Privasi</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-red-600">FAQ</a></li>
-                    </ul>
+                
+                <div class="category-card bg-gray-700 rounded-lg overflow-hidden shadow-lg transition duration-300">
+                    <div class="h-48 bg-gray-600 flex items-center justify-center">
+                        <i class="fas fa-bullseye text-6xl text-red-500"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Peluru</h3>
+                        <p class="text-gray-300">Berbagai jenis peluru berkualitas</p>
+                        <a href="#ammo" class="mt-4 inline-block text-red-400 hover:text-red-300 transition">Lihat Produk →</a>
+                    </div>
                 </div>
-                <div>
-                    <h4 class="font-semibold mb-4">Hubungi Kami</h4>
-                    <ul class="space-y-2 text-gray-400">
-                        <li class="flex items-center"><i class="fas fa-map-marker-alt mr-3 text-red-600"></i> Jl. Senjata No. 123, Jakarta</li>
-                        <li class="flex items-center"><i class="fas fa-phone-alt mr-3 text-red-600"></i> +62 21 1234 5678</li>
-                        <li class="flex items-center"><i class="fas fa-envelope mr-3 text-red-600"></i> info@suogunshop.com</li>
-                    </ul>
-                    <div class="flex space-x-4 mt-4">
-                        <a href="#" class="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-red-600 transition duration-300">
+                
+                <div class="category-card bg-gray-700 rounded-lg overflow-hidden shadow-lg transition duration-300">
+                    <div class="h-48 bg-gray-600 flex items-center justify-center">
+                        <i class="fas fa-vest text-6xl text-red-500"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Gear</h3>
+                        <p class="text-gray-300">Perlengkapan dan aksesoris senjata</p>
+                        <a href="#gear" class="mt-4 inline-block text-red-400 hover:text-red-300 transition">Lihat Produk →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section id="products" class="py-16 bg-gray-900">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-12 text-center">SENJATA TERPOPULER</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                <!-- Product 1 -->
+                <div class="product-card bg-gray-800 rounded-lg overflow-hidden shadow-lg transition duration-300">
+                    <div class="h-64 bg-gray-700 flex items-center justify-center p-4">
+                        <img src="https://images.unsplash.com/photo-1597347343906-2933b4dfa10f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Glock 17" class="h-full object-contain">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="text-xl font-semibold mb-1">Glock 17 Gen 5</h3>
+                                <p class="text-gray-400 text-sm">9mm Pistol</p>
+                            </div>
+                            <span class="bg-red-500 text-white text-xs px-2 py-1 rounded">TERLARIS</span>
+                        </div>
+                        <div class="mt-4 flex justify-between items-center">
+                            <span class="text-xl font-bold">Rp 15.500.000</span>
+                            <button onclick="openModal('Glock 17 Gen 5', '9mm Pistol', 'Rp 15.500.000', 'https://images.unsplash.com/photo-1597347343906-2933b4dfa10f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80')" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded transition">BELI</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 2 -->
+                <div class="product-card bg-gray-800 rounded-lg overflow-hidden shadow-lg transition duration-300">
+                    <div class="h-64 bg-gray-700 flex items-center justify-center p-4">
+                        <img src="https://images.unsplash.com/photo-1554494589-c3e0c56c3254?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Colt M4" class="h-full object-contain">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="text-xl font-semibold mb-1">Colt M4 Carbine</h3>
+                                <p class="text-gray-400 text-sm">5.56mm Rifle</p>
+                            </div>
+                            <span class="bg-blue-500 text-white text-xs px-2 py-1 rounded">BARU</span>
+                        </div>
+                        <div class="mt-4 flex justify-between items-center">
+                            <span class="text-xl font-bold">Rp 32.750.000</span>
+                            <button onclick="openModal('Colt M4 Carbine', '5.56mm Rifle', 'Rp 32.750.000', 'https://images.unsplash.com/photo-1554494589-c3e0c56c3254?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80')" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded transition">BELI</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 3 -->
+                <div class="product-card bg-gray-800 rounded-lg overflow-hidden shadow-lg transition duration-300">
+                    <div class="h-64 bg-gray-700 flex items-center justify-center p-4">
+                        <img src="https://images.unsplash.com/photo-1610641818989-c039b6a1e8a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Beretta 92FS" class="h-full object-contain">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="text-xl font-semibold mb-1">Beretta 92FS</h3>
+                                <p class="text-gray-400 text-sm">9mm Pistol</p>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex justify-between items-center">
+                            <span class="text-xl font-bold">Rp 18.200.000</span>
+                            <button onclick="openModal('Beretta 92FS', '9mm Pistol', 'Rp 18.200.000', 'https://images.unsplash.com/photo-1610641818989-c039b6a1e8a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80')" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded transition">BELI</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 4 -->
+                <div class="product-card bg-gray-800 rounded-lg overflow-hidden shadow-lg transition duration-300">
+                    <div class="h-64 bg-gray-700 flex items-center justify-center p-4">
+                        <img src="https://images.unsplash.com/photo-1554494583-3f7a1aecc0fb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Remington 700" class="h-full object-contain">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="text-xl font-semibold mb-1">Remington 700</h3>
+                                <p class="text-gray-400 text-sm">.308 Sniper Rifle</p>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex justify-between items-center">
+                            <span class="text-xl font-bold">Rp 28.900.000</span>
+                            <button onclick="openModal('Remington 700', '.308 Sniper Rifle', 'Rp 28.900.000', 'https://images.unsplash.com/photo-1554494583-3f7a1aecc0fb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80')" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded transition">BELI</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 text-center">
+                <a href="#all-products" class="inline-block bg-gray-700 hover:bg-gray-600 text-white px-6 py-3 rounded-lg font-semibold transition">LIHAT SEMUA SENJATA</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ammo Section -->
+    <section id="ammo" class="py-16 bg-gray-800">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-12 text-center">PELURU & MAGAZINE</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Ammo 1 -->
+                <div class="product-card bg-gray-700 rounded-lg overflow-hidden shadow-lg transition duration-300">
+                    <div class="h-48 bg-gray-600 flex items-center justify-center p-4">
+                        <img src="https://images.unsplash.com/photo-1574246604907-db69e4f9bebf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="9mm Ammo" class="h-full object-contain">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-1">9mm FMJ</h3>
+                        <p class="text-gray-300 text-sm mb-3">50 rounds per box</p>
+                        <div class="mt-4 flex justify-between items-center">
+                            <span class="text-xl font-bold">Rp 750.000</span>
+                            <button onclick="openModal('9mm FMJ', '50 rounds per box', 'Rp 750.000', 'https://images.unsplash.com/photo-1574246604907-db69e4f9bebf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80')" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded transition">BELI</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Ammo 2 -->
+                <div class="product-card bg-gray-700 rounded-lg overflow-hidden shadow-lg transition duration-300">
+                    <div class="h-48 bg-gray-600 flex items-center justify-center p-4">
+                        <img src="https://images.unsplash.com/photo-1597347343906-2933b4dfa10f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="5.56mm Ammo" class="h-full object-contain">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-1">5.56mm NATO</h3>
+                        <p class="text-gray-300 text-sm mb-3">20 rounds per box</p>
+                        <div class="mt-4 flex justify-between items-center">
+                            <span class="text-xl font-bold">Rp 850.000</span>
+                            <button onclick="openModal('5.56mm NATO', '20 rounds per box', 'Rp 850.000', 'https://images.unsplash.com/photo-1597347343906-2933b4dfa10f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80')" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded transition">BELI</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Magazine 1 -->
+                <div class="product-card bg-gray-700 rounded-lg overflow-hidden shadow-lg transition duration-300">
+                    <div class="h-48 bg-gray-600 flex items-center justify-center p-4">
+                        <img src="https://images.unsplash.com/photo-1610641818989-c039b6a1e8a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Glock Magazine" class="h-full object-contain">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-1">Glock 17 Magazine</h3>
+                        <p class="text-gray-300 text-sm mb-3">17 rounds capacity</p>
+                        <div class="mt-4 flex justify-between items-center">
+                            <span class="text-xl font-bold">Rp 1.200.000</span>
+                            <button onclick="openModal('Glock 17 Magazine', '17 rounds capacity', 'Rp 1.200.000', 'https://images.unsplash.com/photo-1610641818989-c039b6a1e8a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80')" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded transition">BELI</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Magazine 2 -->
+                <div class="product-card bg-gray-700 rounded-lg overflow-hidden shadow-lg transition duration-300">
+                    <div class="h-48 bg-gray-600 flex items-center justify-center p-4">
+                        <img src="https://images.unsplash.com/photo-1554494589-c3e0c56c3254?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="AR-15 Magazine" class="h-full object-contain">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-1">AR-15 Magazine</h3>
+                        <p class="text-gray-300 text-sm mb-3">30 rounds capacity</p>
+                        <div class="mt-4 flex justify-between items-center">
+                            <span class="text-xl font-bold">Rp 1.500.000</span>
+                            <button onclick="openModal('AR-15 Magazine', '30 rounds capacity', 'Rp 1.500.000', 'https://images.unsplash.com/photo-1554494589-c3e0c56c3254?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80')" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded transition">BELI</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tactical Gear Section -->
+    <section id="gear" class="py-16 bg-gray-900">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-12 text-center">TACTICAL GEAR</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Gear 1 -->
+                <div class="product-card bg-gray-800 rounded-lg overflow-hidden shadow-lg transition duration-300">
+                    <div class="h-64 bg-gray-700 flex items-center justify-center p-4">
+                        <img src="https://images.unsplash.com/photo-1556910638-37dea9e79c91?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Tactical Vest" class="h-full object-contain">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-1">Tactical Vest</h3>
+                        <p class="text-gray-300 text-sm mb-3">Modular plate carrier</p>
+                        <div class="mt-4 flex justify-between items-center">
+                            <span class="text-xl font-bold">Rp 3.500.000</span>
+                            <button onclick="openModal('Tactical Vest', 'Modular plate carrier', 'Rp 3.500.000', 'https://images.unsplash.com/photo-1556910638-37dea9e79c91?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80')" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded transition">BELI</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Gear 2 -->
+                <div class="product-card bg-gray-800 rounded-lg overflow-hidden shadow-lg transition duration-300">
+                    <div class="h-64 bg-gray-700 flex items-center justify-center p-4">
+                        <img src="https://images.unsplash.com/photo-1556910638-37dea9e79c91?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Holster" class="h-full object-contain">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-1">Tactical Holster</h3>
+                        <p class="text-gray-300 text-sm mb-3">For Glock 17/19</p>
+                        <div class="mt-4 flex justify-between items-center">
+                            <span class="text-xl font-bold">Rp 1.200.000</span>
+                            <button onclick="openModal('Tactical Holster', 'For Glock 17/19', 'Rp 1.200.000', 'https://images.unsplash.com/photo-1556910638-37dea9e79c91?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80')" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded transition">BELI</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Gear 3 -->
+                <div class="product-card bg-gray-800 rounded-lg overflow-hidden shadow-lg transition duration-300">
+                    <div class="h-64 bg-gray-700 flex items-center justify-center p-4">
+                        <img src="https://images.unsplash.com/photo-1556910638-37dea9e79c91?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Scope" class="h-full object-contain">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-1">Tactical Scope</h3>
+                        <p class="text-gray-300 text-sm mb-3">4-16x50mm</p>
+                        <div class="mt-4 flex justify-between items-center">
+                            <span class="text-xl font-bold">Rp 5.750.000</span>
+                            <button onclick="openModal('Tactical Scope', '4-16x50mm', 'Rp 5.750.000', 'https://images.unsplash.com/photo-1556910638-37dea9e79c91?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80')" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded transition">BELI</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 bg-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col lg:flex-row items-center">
+                <div class="lg:w-1/2 mb-8 lg:mb-0 lg:pr-12">
+                    <h2 class="text-3xl font-bold mb-6">TENTANG SUO GUNSHOP</h2>
+                    <p class="text-gray-300 mb-4">
+                        Suo GunShop adalah toko senjata premium yang menyediakan berbagai macam senjata api berkualitas tinggi, peluru, dan perlengkapan taktis. Kami berkomitmen untuk memberikan produk terbaik dengan layanan profesional.
+                    </p>
+                    <p class="text-gray-300 mb-4">
+                        Dengan pengalaman lebih dari 10 tahun di industri ini, kami telah melayani berbagai kalangan mulai dari kolektor, atlet shooting, hingga profesional keamanan.
+                    </p>
+                    <div class="flex space-x-4 mt-6">
+                        <a href="#" class="bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-full transition">
                             <i class="fab fa-facebook-f"></i>
                         </a>
-                        <a href="#" class="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-red-600 transition duration-300">
+                        <a href="#" class="bg-pink-600 hover:bg-pink-700 text-white p-3 rounded-full transition">
                             <i class="fab fa-instagram"></i>
                         </a>
-                        <a href="#" class="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-red-600 transition duration-300">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-red-600 transition duration-300">
+                        <a href="#" class="bg-green-600 hover:bg-green-700 text-white p-3 rounded-full transition">
                             <i class="fab fa-whatsapp"></i>
                         </a>
                     </div>
                 </div>
+                <div class="lg:w-1/2">
+                    <div class="bg-gray-700 rounded-lg overflow-hidden shadow-lg">
+                        <img src="https://images.unsplash.com/photo-1511497584788-876760111969?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="About Us" class="w-full h-auto">
+                    </div>
+                </div>
             </div>
-            <div class="border-t border-gray-700 mt-12 pt-8 text-center text-gray-500">
-                <p>&copy; 2023 Suo GunShop. All rights reserved.</p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="py-16 bg-gray-900">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-12 text-center">HUBUNGI KAMI</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">INFORMASI KONTAK</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <i class="fas fa-map-marker-alt text-red-500 mt-1 mr-3"></i>
+                            <p class="text-gray-300">Jl. Senjata No. 17, Jakarta Selatan, Indonesia</p>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-phone-alt text-red-500 mr-3"></i>
+                            <p class="text-gray-300">+62 812-3456-7890</p>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-envelope text-red-500 mr-3"></i>
+                            <p class="text-gray-300">info@suogunshop.com</p>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-clock text-red-500 mr-3"></i>
+                            <p class="text-gray-300">Buka: Senin - Sabtu, 09:00 - 17:00 WIB</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">KIRIM PESAN</h3>
+                    <form class="space-y-4">
+                        <div>
+                            <input type="text" placeholder="Nama Anda" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500">
+                        </div>
+                        <div>
+                            <input type="email" placeholder="Email Anda" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500">
+                        </div>
+                        <div>
+                            <input type="text" placeholder="Subjek" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500">
+                        </div>
+                        <div>
+                            <textarea placeholder="Pesan Anda" rows="4" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500"></textarea>
+                        </div>
+                        <button type="submit" class="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-semibold transition">KIRIM PESAN</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <div class="flex items-center">
+                        <i class="fas fa-gun text-red-500 text-2xl mr-2"></i>
+                        <span class="text-xl font-bold text-white">Suo GunShop</span>
+                    </div>
+                    <p class="text-gray-400 mt-2">Premium Firearms & Tactical Equipment</p>
+                </div>
+                
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white transition">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 flex flex-col md:flex-row justify-between">
+                <div class="mb-4 md:mb-0">
+                    <p class="text-gray-400">&copy; 2023 Suo GunShop. All rights reserved.</p>
+                </div>
+                
+                <div class="flex flex-col md:flex-row md:space-x-8 space-y-2 md:space-y-0">
+                    <a href="#" class="text-gray-400 hover:text-white transition">Kebijakan Privasi</a>
+                    <a href="#" class="text-gray-400 hover:text-white transition">Syarat & Ketentuan</a>
+                    <a href="#" class="text-gray-400 hover:text-white transition">FAQ</a>
+                </div>
             </div>
         </div>
     </footer>
 
-    <script>
-        // Product Data
-        const products = [
-            {
-                id: 1,
-                name: "Glock 17 Gen 5",
-                category: "pistol",
-                price: 15000000,
-                image: "https://images.unsplash.com/photo-1597347343906-7ff74106c0a0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
-                description: "Pistol semi-otomatis dengan kapasitas 17 peluru, populer di kalangan militer dan penegak hukum.",
-                ammo: "9mm",
-                stock: 10
-            },
-            {
-                id: 2,
-                name: "Colt M1911",
-                category: "pistol",
-                price: 12000000,
-                image: "https://images.unsplash.com/photo-1583947581924-860bda6f26d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
-                description: "Pistol legendaris dengan desain klasik, menggunakan peluru .45 ACP.",
-                ammo: ".45 ACP",
-                stock: 8
-            },
-            {
-                id: 3,
-                name: "AK-47",
-                category: "rifle",
-                price: 25000000,
-                image: "https://images.unsplash.com/photo-1562256885-8a0a7a0a87f9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
-                description: "Senapan serbu terkenal dengan keandalan tinggi, menggunakan peluru 7.62x39mm.",
-                ammo: "7.62x39mm",
-                stock: 5
-            },
-            {
-                id: 4,
-                name: "AR-15",
-                category: "rifle",
-                price: 22000000,
-                image: "https://images.unsplash.com/photo-1558684995-7240c8a7fcf4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
-                description: "Senapan serbu modular dengan berbagai opsi kustomisasi, menggunakan peluru 5.56x45mm NATO.",
-                ammo: "5.56x45mm NATO",
-                stock: 7
-            },
-            {
-                id: 5,
-                name: "Remington 870",
-                category: "shotgun",
-                price: 18000000,
-                image: "https://images.unsplash.com/photo-1562256885-8a0a7a0a87f9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
-                description: "Shotgun pump-action yang sangat populer untuk keperluan pertahanan dan berburu.",
-                ammo: "12 Gauge",
-                stock: 6
-            },
-            {
-                id: 6,
-                name: "Barrett M82",
-                category: "sniper",
-                price: 45000000,
-                image: "https://images.unsplash.com/photo-1558684995-7240c8a7fcf4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
-                description: "Senapan anti-materiel dengan daya tembak jarak jauh, menggunakan peluru .50 BMG.",
-                ammo: ".50 BMG",
-                stock: 3
-            },
-            {
-                id: 7,
-                name: "9mm FMJ (50 rounds)",
-                category: "ammo",
-                price: 500000,
-                image: "https://images.unsplash.com/photo-1562256885-8a0a7a0a87f9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
-                description: "Peluru Full Metal Jacket untuk pistol 9mm, paket 50 butir.",
-                ammo: "9mm",
-                stock: 20
-            },
-            {
-                id: 8,
-                name: "5.56mm NATO (30 rounds)",
-                category: "ammo",
-                price: 750000,
-                image: "https://images.unsplash.com/photo-1558684995-7240c8a7fcf4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
-                description: "Peluru untuk senapan AR-15, paket 30 butir.",
-                ammo: "5.56mm NATO",
-                stock: 15
-            },
-            {
-                id: 9,
-                name: "Tactical Vest",
-                category: "gear",
-                price: 2500000,
-                image: "https://images.unsplash.com/photo-1562256885-8a0a7a0a87f9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
-                description: "Rompi taktis dengan banyak kantong untuk peralatan dan magasin.",
-                stock: 12
-            },
-            {
-                id: 10,
-                name: "Tactical Helmet",
-                category: "gear",
-                price: 1800000,
-                image: "https://images.unsplash.com/photo-1558684995-7240c8a7fcf4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
-                description: "Helm taktis dengan mount untuk night vision dan aksesoris lainnya.",
-                stock: 8
-            },
-            {
-                id: 11,
-                name: "Sig Sauer P320",
-                category: "pistol",
-                price: 16000000,
-                image: "https://images.unsplash.com/photo-1597347343906-7ff74106c0a0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
-                description: "Pistol modular dengan sistem fire control yang dapat ditukar.",
-                ammo: "9mm",
-                stock: 6
-            },
-            {
-                id: 12,
-                name: "HK416",
-                category: "rifle",
-                price: 28000000,
-                image: "https://images.unsplash.com/photo-1562256885-8a0a7a0a87f9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
-                description: "Senapan serbu canggih dengan sistem gas piston yang lebih bersih.",
-                ammo: "5.56x45mm NATO",
-                stock: 4
-            }
-        ];
-
-        // Cart Data
-        let cart = [];
-        let currentPaymentMethod = 'cod';
-        let currentCheckoutStep = 1;
-
-        // DOM Elements
-        const mainContent = document.getElementById('main-content');
-        const homeSection = document.getElementById('home-section');
-        const productsSection = document.getElementById('products-section');
-        const aboutSection = document.getElementById('about-section');
-        const contactSection = document.getElementById('contact-section');
-        const checkoutSection = document.getElementById('checkout-section');
-        const orderConfirmationSection = document.getElementById('order-confirmation-section');
-        const cartSidebar = document.getElementById('cart-sidebar');
-        const overlay = document.getElementById('overlay');
-        const cartCount = document.getElementById('cart-count');
-        const cartItems = document.getElementById('cart-items');
-        const cartTotal = document.getElementById('cart-total');
-        const checkoutTotal = document.getElementById('checkout-total');
-        const mobileMenu = document.getElementById('mobile-menu');
-
-        // Initialize the page
-        document.addEventListener('DOMContentLoaded', function() {
-            displayFeaturedProducts();
-            updateCartCount();
-        });
-
-        // Navigation Functions
-        function showHome() {
-            hideAllSections();
-            homeSection.classList.remove('hidden');
-            setActiveNavLink('home');
-            closeMobileMenu();
-        }
-
-        function showProducts(filter = 'all') {
-            hideAllSections();
-            productsSection.classList.remove('hidden');
-            filterProducts(filter);
-            setActiveNavLink('products');
-            closeMobileMenu();
-        }
-
-        function showAbout() {
-            hideAllSections();
-            aboutSection.classList.remove('hidden');
-            setActiveNavLink('about');
-            closeMobileMenu();
-        }
-
-        function showContact() {
-            hideAllSections();
-            contactSection.classList.remove('hidden');
-            setActiveNavLink('contact');
-            closeMobileMenu();
-        }
-
-        function showCheckout() {
-            hideAllSections();
-            checkoutSection.classList.remove('hidden');
-            updateCheckoutItems();
-            updateCheckoutShippingInfo();
-            updateCheckoutPaymentMethod();
-            toggleCart();
-            setActiveNavLink('');
-        }
-
-        function hideAllSections() {
-            homeSection.classList.add('hidden');
-            productsSection.classList.add('hidden');
-            aboutSection.classList.add('hidden');
-            contactSection.classList.add('hidden');
-            checkoutSection.classList.add('hidden');
-            orderConfirmationSection.classList.add('hidden');
-        }
-
-        function setActiveNavLink(section) {
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.classList.remove('active');
-            });
-            
-            if (section === 'home') {
-                document.querySelector('.nav-link').classList.add('active');
-            } else if (section === 'products') {
-                document.querySelectorAll('.nav-link')[1].classList.add('active');
-            } else if (section === 'about') {
-                document.querySelectorAll('.nav-link')[2].classList.add('active');
-            } else if (section === 'contact') {
-                document.querySelectorAll('.nav-link')[3].classList.add('active');
-            }
-        }
-
-        // Product Display Functions
-        function displayFeaturedProducts() {
-            const featuredProductsContainer = homeSection.querySelector('.grid');
-            featuredProductsContainer.innerHTML = '';
-            
-            // Get 4 random products
-            const shuffled = [...products].sort(() => 0.5 - Math.random());
-            const selected = shuffled.slice(0, 4);
-            
-            selected.forEach(product => {
-                const productCard = createProductCard(product);
-                featuredProductsContainer.appendChild(productCard);
-            });
-        }
-
-        function filterProducts(category) {
-            const productsContainer = productsSection.querySelector('.grid');
-            productsContainer.innerHTML = '';
-            
-            // Update active category button
-            document.querySelectorAll('.category-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            
-            if (category === 'all') {
-                document.getElementById('all-btn').classList.add('active');
-            } else {
-                document.getElementById(`${category}-btn`).classList.add('active');
-            }
-            
-            // Filter products
-            let filteredProducts = products;
-            if (category !== 'all') {
-                filteredProducts = products.filter(product => product.category === category);
-            }
-            
-            // Display filtered products
-            filteredProducts.forEach(product => {
-                const productCard = createProductCard(product);
-                productsContainer.appendChild(productCard);
-            });
-        }
-
-        function createProductCard(product) {
-            const card = document.createElement('div');
-            card.className = 'bg-gray-800 rounded-lg overflow-hidden shadow-lg weapon-card transition duration-300';
-            
-            card.innerHTML = `
-                <div class="relative">
-                    <img src="${product.image}" alt="${product.name}" class="w-full h-48 object-cover">
-                    ${product.category === 'ammo' ? '<div class="absolute top-2 right-2 bg-red-600 text-white px-2 py-1 rounded text-xs font-bold">AMMO</div>' : ''}
-                </div>
-                <div class="p-4">
-                    <h3 class="font-bold text-lg mb-2">${product.name}</h3>
-                    ${product.ammo ? `<p class="text-gray-400 text-sm mb-2">Ammo: ${product.ammo}</p>` : ''}
-                    <p class="text-gray-300 text-sm mb-4">${product.description}</p>
-                    <div class="flex justify-between items-center">
-                        <span class="font-bold text-red-600">Rp ${product.price.toLocaleString('id-ID')}</span>
-                        <button onclick="addToCart(${product.id})" class="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-sm transition duration-300">
-                            <i class="fas fa-cart-plus mr-1"></i> Add
-                        </button>
-                    </div>
-                </div>
-            `;
-            
-            return card;
-        }
-
-        // Cart Functions
-        function addToCart(productId) {
-            const product = products.find(p => p.id === productId);
-            
-            if (!product) return;
-            
-            const existingItem = cart.find(item => item.id === productId);
-            
-            if (existingItem) {
-                if (existingItem.quantity < product.stock) {
-                    existingItem.quantity++;
-                } else {
-                    alert('Stok produk ini tidak mencukupi');
-                    return;
-                }
-            } else {
-                cart.push({
-                    id: product.id,
-                    name: product.name,
-                    price: product.price,
-                    image: product.image,
-                    quantity: 1
-                });
-            }
-            
-            updateCartCount();
-            updateCartItems();
-            
-            // Show notification
-            const notification = document.createElement('div');
-            notification.className = 'fixed bottom-4 right-4 bg-green-600 text-white px-4 py-2 rounded shadow-lg flex items-center';
-            notification.innerHTML = `
-                <i class="fas fa-check-circle mr-2"></i>
-                <span>${product.name} ditambahkan ke keranjang</span>
-            `;
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                notification.classList.add('opacity-0', 'transition-opacity', 'duration-300');
-                setTimeout(() => notification.remove(), 300);
-            }, 2000);
-        }
-
-        function updateCartCount() {
-            const count = cart.reduce((total, item) => total + item.quantity, 0);
-            
-            if (count > 0) {
-                cartCount.textContent = count;
-                cartCount.classList.remove('hidden');
-            } else {
-                cartCount.classList.add('hidden');
-            }
-        }
-
-        function updateCartItems() {
-            if (cart.length === 0) {
-                cartItems.innerHTML = '<p class="text-gray-400 text-center py-8">Keranjang belanja Anda kosong</p>';
-                cartTotal.textContent = 'Rp 0';
-                checkoutTotal.textContent = '0';
-                return;
-            }
-            
-            let itemsHTML = '';
-            let total = 0;
-            
-            cart.forEach(item => {
-                const itemTotal = item.price * item.quantity;
-                total += itemTotal;
+    <!-- Product Modal -->
+    <div id="productModal" class="modal fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 hidden">
+        <div class="bg-gray-800 rounded-lg max-w-4xl w-full mx-4 overflow-hidden">
+            <div class="relative">
+                <button onclick="closeModal()" class="absolute top-4 right-4 bg-gray-700 hover:bg-gray-600 text-white rounded-full p-2 transition">
+                    <i class="fas fa-times"></i>
+                </button>
                 
-                itemsHTML += `
-                    <div class="cart-item flex items-center mb-4 pb-4 border-b border-gray-700">
-                        <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded mr-4">
-                        <div class="flex-1">
-                            <h4 class="font-semibold">${item.name}</h4>
-                            <div class="flex justify-between items-center mt-2">
-                                <div class="flex items-center">
-                                    <button onclick="updateQuantity(${item.id}, -1)" class="bg-gray-700 hover:bg-gray-600 w-6 h-6 rounded flex items-center justify-center">
-                                        <i class="fas fa-minus text-xs"></i>
-                                    </button>
-                                    <span class="mx-3">${item.quantity}</span>
-                                    <button onclick="updateQuantity(${item.id}, 1)" class="bg-gray-700 hover:bg-gray-600 w-6 h-6 rounded flex items-center justify-center">
-                                        <i class="fas fa-plus text-xs"></i>
-                                    </button>
-                                </div>
-                                <span class="font-semibold">Rp ${itemTotal.toLocaleString('id-ID')}</span>
+                <div class="flex flex-col lg:flex-row">
+                    <div class="lg:w-1/2 bg-gray-700 p-8 flex items-center justify-center">
+                        <img id="modalImage" src="" alt="Product" class="max-h-96 object-contain">
+                    </div>
+                    
+                    <div class="lg:w-1/2 p-8">
+                        <h3 id="modalTitle" class="text-2xl font-bold mb-2"></h3>
+                        <p id="modalDesc" class="text-gray-400 mb-4"></p>
+                        <div class="flex items-center mb-6">
+                            <span id="modalPrice" class="text-2xl font-bold text-red-500"></span>
+                            <span class="ml-2 text-gray-400">(Stok Tersedia)</span>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h4 class="font-semibold mb-2">Pilih Metode Pembayaran:</h4>
+                            <div class="grid grid-cols-2 gap-3">
+                                <button onclick="selectPayment('cod')" class="payment-method border border-gray-600 rounded-lg p-3 text-center transition">
+                                    <i class="fas fa-truck text-xl mb-2"></i>
+                                    <p>COD</p>
+                                    <p class="text-xs text-gray-400 mt-1">Bayar saat barang diterima</p>
+                                </button>
+                                <button onclick="selectPayment('gopay')" class="payment-method border border-gray-600 rounded-lg p-3 text-center transition">
+                                    <i class="fab fa-google-pay text-xl mb-2"></i>
+                                    <p>Gopay</p>
+                                    <p class="text-xs text-gray-400 mt-1">Transfer via Gopay</p>
+                                </button>
+                                <button onclick="selectPayment('dana')" class="payment-method border border-gray-600 rounded-lg p-3 text-center transition">
+                                    <i class="fas fa-wallet text-xl mb-2"></i>
+                                    <p>Dana</p>
+                                    <p class="text-xs text-gray-400 mt-1">Transfer via Dana</p>
+                                </button>
+                                <button onclick="selectPayment('bank')" class="payment-method border border-gray-600 rounded-lg p-3 text-center transition">
+                                    <i class="fas fa-university text-xl mb-2"></i>
+                                    <p>Bank Transfer</p>
+                                    <p class="text-xs text-gray-400 mt-1">Transfer via Bank</p>
+                                </button>
                             </div>
                         </div>
-                        <button onclick="removeFromCart(${item.id})" class="ml-4 text-gray-400 hover:text-red-600">
-                            <i class="fas fa-times"></i>
-                        </button>
-                    </div>
-                `;
-            });
-            
-            cartItems.innerHTML = itemsHTML;
-            cartTotal.textContent = `Rp ${total.toLocaleString('id-ID')}`;
-            checkoutTotal.textContent = total.toLocaleString('id-ID');
-        }
-
-        function updateQuantity(productId, change) {
-            const item = cart.find(item => item.id === productId);
-            const product = products.find(p => p.id === productId);
-            
-            if (!item || !product) return;
-            
-            const newQuantity = item.quantity + change;
-            
-            if (newQuantity < 1) {
-                removeFromCart(productId);
-                return;
-            }
-            
-            if (newQuantity > product.stock) {
-                alert('Stok produk ini tidak mencukupi');
-                return;
-            }
-            
-            item.quantity = newQuantity;
-            updateCartCount();
-            updateCartItems();
-        }
-
-        function removeFromCart(productId) {
-            cart = cart.filter(item => item.id !== productId);
-            updateCartCount();
-            updateCartItems();
-        }
-
-        function toggleCart() {
-            if (cartSidebar.classList.contains('translate-x-full')) {
-                cartSidebar.classList.remove('translate-x-full');
-                overlay.classList.remove('hidden');
-                document.body.classList.add('overflow-hidden');
-            } else {
-                cartSidebar.classList.add('translate-x-full');
-                overlay.classList.add('hidden');
-                document.body.classList.remove('overflow-hidden');
-            }
-        }
-
-        // Checkout Functions
-        function updateCheckoutItems() {
-            const checkoutItems = document.getElementById('checkout-items');
-            let subtotal = 0;
-            
-            if (cart.length === 0) {
-                checkoutItems.innerHTML = '<p class="text-gray-400">Tidak ada item dalam keranjang</p>';
-                return;
-            }
-            
-            let itemsHTML = '';
-            
-            cart.forEach(item => {
-                const itemTotal = item.price * item.quantity;
-                subtotal += itemTotal;
-                
-                itemsHTML += `
-                    <div class="flex justify-between mb-2">
-                        <span>${item.name} x${item.quantity}</span>
-                        <span>Rp ${itemTotal.toLocaleString('id-ID')}</span>
-                    </div>
-                `;
-            });
-            
-            checkoutItems.innerHTML = itemsHTML;
-            document.getElementById('checkout-subtotal').textContent = `Rp ${subtotal.toLocaleString('id-ID')}`;
-            
-            const shipping = 25000;
-            const total = subtotal + shipping;
-            
-            document.getElementById('checkout-shipping').textContent = `Rp ${shipping.toLocaleString('id-ID')}`;
-            document.getElementById('checkout-total-amount').textContent = `Rp ${total.toLocaleString('id-ID')}`;
-        }
-
-        function updateCheckoutShippingInfo() {
-            const shippingInfo = document.getElementById('checkout-shipping-info');
-            
-            const firstName = document.getElementById('first-name').value || '[Nama Depan]';
-            const lastName = document.getElementById('last-name').value || '[Nama Belakang]';
-            const address = document.getElementById('address').value || '[Alamat Lengkap]';
-            const city = document.getElementById('city').value || '[Kota]';
-            const province = document.getElementById('province').value || '[Provinsi]';
-            const postalCode = document.getElementById('postal-code').value || '[Kode Pos]';
-            const phone = document.getElementById('phone').value || '[Nomor Telepon]';
-            
-            shippingInfo.innerHTML = `
-                <p>${firstName} ${lastName}</p>
-                <p>${address}</p>
-                <p>${city}, ${province} ${postalCode}</p>
-                <p>${phone}</p>
-            `;
-        }
-
-        function updateCheckoutPaymentMethod() {
-            const paymentMethod = document.getElementById('checkout-payment-method');
-            
-            if (currentPaymentMethod === 'cod') {
-                paymentMethod.innerHTML = `
-                    <div class="flex items-center">
-                        <i class="fas fa-motorcycle text-xl text-red-600 mr-3"></i>
-                        <div>
-                            <p class="font-semibold">Cash on Delivery (COD)</p>
-                            <p class="text-sm text-gray-400">Bayar saat barang diterima</p>
+                        
+                        <!-- Payment Details (hidden by default) -->
+                        <div id="paymentDetails" class="hidden mb-6 bg-gray-700 p-4 rounded-lg">
+                            <h4 class="font-semibold mb-3" id="paymentMethodTitle">Metode Pembayaran</h4>
+                            <div id="codDetails" class="hidden">
+                                <p class="text-gray-300 mb-3">Untuk pembayaran COD, silahkan hubungi kami via WhatsApp untuk konfirmasi pesanan dan alamat pengiriman.</p>
+                                <a href="https://wa.me/6281234567890" class="inline-block bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded transition">
+                                    <i class="fab fa-whatsapp mr-2"></i> Hubungi via WhatsApp
+                                </a>
+                            </div>
+                            <div id="gopayDetails" class="hidden">
+                                <p class="text-gray-300 mb-2">Silahkan transfer ke nomor Gopay berikut:</p>
+                                <div class="bg-gray-800 p-3 rounded mb-3">
+                                    <p class="font-mono">0857 1234 5678</p>
+                                    <p class="text-sm text-gray-400">a.n. Suo GunShop Official</p>
+                                </div>
+                                <p class="text-gray-300 mb-3">Setelah transfer, silahkan upload bukti transfer melalui form dibawah ini:</p>
+                                <div class="mb-3">
+                                    <label class="block text-gray-300 mb-2">Upload Bukti Transfer</label>
+                                    <input type="file" class="w-full bg-gray-800 border border-gray-600 rounded px-4 py-2">
+                                </div>
+                                <button class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded transition w-full">
+                                    Konfirmasi Pembayaran
+                                </button>
+                            </div>
+                            <div id="danaDetails" class="hidden">
+                                <p class="text-gray-300 mb-2">Silahkan transfer ke nomor Dana berikut:</p>
+                                <div class="bg-gray-800 p-3 rounded mb-3">
+                                    <p class="font-mono">0857 1234 5678</p>
+                                    <p class="text-sm text-gray-400">a.n. Suo GunShop Official</p>
+                                </div>
+                                <p class="text-gray-300 mb-3">Setelah transfer, silahkan upload bukti transfer melalui form dibawah ini:</p>
+                                <div class="mb-3">
+                                    <label class="block text-gray-300 mb-2">Upload Bukti Transfer</label>
+                                    <input type="file" class="w-full bg-gray-800 border border-gray-600 rounded px-4 py-2">
+                                </div>
+                                <button class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded transition w-full">
+                                    Konfirmasi Pembayaran
+                                </button>
+                            </div>
+                            <div id="bankDetails" class="hidden">
+                                <p class="text-gray-300 mb-2">Silahkan transfer ke rekening bank berikut:</p>
+                                <div class="bg-gray-800 p-3 rounded mb-3">
+                                    <p class="font-semibold">Bank BCA</p>
+                                    <p class="font-mono">123 456 7890</p>
+                                    <p class="text-sm text-gray-400">a.n. Suo GunShop Official</p>
+                                </div>
+                                <p class="text-gray-300 mb-3">Setelah transfer, silahkan upload bukti transfer melalui form dibawah ini:</p>
+                                <div class="mb-3">
+                                    <label class="block text-gray-300 mb-2">Upload Bukti Transfer</label>
+                                    <input type="file" class="w-full bg-gray-800 border border-gray-600 rounded px-4 py-2">
+                                </div>
+                                <button class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded transition w-full">
+                                    Konfirmasi Pembayaran
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="flex space-x-4">
+                            <button class="bg-gray-700 hover:bg-gray-600 text-white px-6 py-3 rounded-lg font-semibold transition flex-1">
+                                <i class="fas fa-heart mr-2"></i> Wishlist
+                            </button>
+                            <button class="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-semibold transition flex-1">
+                                <i class="fas fa-shopping-cart mr-2"></i> Tambah ke Keranjang
+                            </button>
                         </div>
                     </div>
-                `;
-                document.getElementById('payment-proof-upload').classList.add('hidden');
-            } else if (currentPaymentMethod === 'gopay') {
-                paymentMethod.innerHTML = `
-                    <div class="flex items-center">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/GoPay_logo.svg/1200px-GoPay_logo.svg.png" alt="Gopay" class="h-6 mr-3">
-                        <div>
-                            <p class="font-semibold">Gopay</p>
-                            <p class="text-sm text-gray-400">Transfer via Gopay</p>
-                        </div>
-                    </div>
-                    <div class="mt-3 bg-gray-700 p-3 rounded">
-                        <p class="text-sm mb-1">Silakan transfer ke:</p>
-                        <p class="font-mono">081234567890</p>
-                    </div>
-                `;
-                document.getElementById('payment-proof-upload').classList.remove('hidden');
-            } else if (currentPaymentMethod === 'dana') {
-                paymentMethod.innerHTML = `
-                    <div class="flex items-center">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Logo_DANA.svg/1200px-Logo_DANA.svg.png" alt="Dana" class="h-6 mr-3">
-                        <div>
-                            <p class="font-semibold">Dana</p>
-                            <p class="text-sm text-gray-400">Transfer via Dana</p>
-                        </div>
-                    </div>
-                    <div class="mt-3 bg-gray-700 p-3 rounded">
-                        <p class="text-sm mb-1">Silakan transfer ke:</p>
-                        <p class="font-mono">081234567890</p>
-                    </div>
-                `;
-                document.getElementById('payment-proof-upload').classList.remove('hidden');
-            }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Modal functions
+        function openModal(title, desc, price, image) {
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalDesc').textContent = desc;
+            document.getElementById('modalPrice').textContent = price;
+            document.getElementById('modalImage').src = image;
+            document.getElementById('productModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
         }
 
-        function selectPaymentMethod(method) {
-            currentPaymentMethod = method;
+        function closeModal() {
+            document.getElementById('productModal').classList.add('hidden');
+            document.getElementById('paymentDetails').classList.add('hidden');
+            document.body.style.overflow = 'auto';
             
-            // Update UI
-            document.querySelectorAll('.payment-method').forEach(el => {
-                el.classList.remove('active');
-            });
+            // Reset all payment details
+            document.getElementById('codDetails').classList.add('hidden');
+            document.getElementById('gopayDetails').classList.add('hidden');
+            document.getElementById('danaDetails').classList.add('hidden');
+            document.getElementById('bankDetails').classList.add('hidden');
+        }
+
+        // Payment method selection
+        function selectPayment(method) {
+            const paymentDetails = document.getElementById('paymentDetails');
+            paymentDetails.classList.remove('hidden');
             
-            document.querySelector(`#${method}-details`).classList.add('hidden');
+            // Hide all payment details first
+            document.getElementById('codDetails').classList.add('hidden');
+            document.getElementById('gopayDetails').classList.add('hidden');
+            document.getElementById('danaDetails').classList.add('hidden');
+            document.getElementById('bankDetails').classList.add('hidden');
             
-            if (method === 'cod') {
-                document.querySelector(`#cod`).parentElement.parentElement.classList.add('active');
-            } else if (method === 'gopay') {
-                document.querySelector(`#gopay`).parentElement.parentElement.classList.add('active');
-                document.querySelector(`#gopay-details`).classList.remove('
+            // Show selected payment details
+            document.getElementById(method + 'Details').classList.remove('hidden');
+            document.getElementById('paymentMethodTitle').textContent = 
+                method === 'cod' ? 'Cash on Delivery (COD)' : 
+                method === 'gopay' ? 'Pembayaran via Gopay' : 
+                method === 'dana' ? 'Pembayaran via Dana' : 'Transfer Bank';
+        }
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(event) {
+            const modal = document.getElementById('productModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        });
+    </script>
 </body>
 </html>
